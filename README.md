@@ -15,3 +15,4 @@ This template serves to provide the following:
 - Once you have created your new repository you need to:
   - Copy `.github/workflows/octo-push.yaml.example` -> `.github/workflows/octo-push.yaml`
   - Find & replace '<REPLACE-THIS>' with the appropriate values.
+  - Correct the namespaces in: `src/TicketType.Microservice.Template/Infrastructure/FeatureFlags/*`
