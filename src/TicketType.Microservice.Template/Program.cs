@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace TicketType.Microservice.Template
 {
@@ -13,11 +14,14 @@ namespace TicketType.Microservice.Template
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureServices(Startup.ConfigureServices)
+                .UseSerilog((hostContext, logConfiguration) =>
+                    logConfiguration.ReadFrom.Configuration(hostContext.Configuration)
+                );
     }
 }

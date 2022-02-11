@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  handler:
+    build:
+      context: .
+      target: build-env
+      args:
+        - GITHUB_USER=${GITHUB_USER}
+        - GITHUB_TOKEN=${GITHUB_TOKEN}
+    entrypoint: ["/app/local-startup.sh"]
+    command: ["--project", "/app/src/TicketType.Microservice.Template"]
+    volumes:
+    - ./src/TicketType.Microservice.Template:/app/src/TicketType.Microservice.Template
+    - ./scripts/local/local-startup.sh:/app/local-startup.sh:ro
+    - ./scripts/local/variant:/docker-entrypoint-initvariant.d:ro
+    - ./scripts/local/wait-for-it.sh:/usr/local/bin/wait-for-it:ro
+    environment:
+      - AWS__ServiceURL=http://localstack:4566
+      - SQS__QueueUrl=http://localstack:4566/000000000000/entity-queue
+      - SNS__TopicUrl=http://localstack:4566/000000000000/entity-topic
+      - DOTNET_ENIVRONMENT=Development
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+    depends_on:
+      - localstack
+  localstack:
+    image: localstack/localstack:0.11.2
+    environment:
+      - DEBUG=1
+      - HOSTNAME=localstack
+      - HOSTNAME_EXTERNAL=localstack
+      - LOCALSTACK_HOSTNAME=localstack
+      - SERVICES=sqs,sns
+      - DEFAULT_REGION=us-east-1
+      - DATA_DIR=/tmp/localstack/data
+    ports:
+      - 127.0.0.1:4567:4566
+    volumes:
+      - ./scripts/local/localstack:/docker-entrypoint-initaws.d:ro
+networks:
+  default:
+    name: ticket-type-microservice-network
