@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="App.Metrics" Version="4.3.0" />
+        <PackageReference Include="App.Metrics.Reporting.Console" Version="4.3.0" />
+        <PackageReference Include="Epsagon.Dotnet.Mvc" Version="1.24.2" />
+        <PackageReference Include="LaunchDarkly.Logging.Microsoft" Version="2.0.0" />
+        <PackageReference Include="LaunchDarkly.ServerSdk" Version="6.3.2" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="Serilog.Exceptions" Version="8.0.0" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="4.2.0" />
+        <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+        <PackageReference Include="TimeZoneConverter" Version="5.0.0" />
+        <PackageReference Include="Variant.HealthChecks.Console" Version="5.0.0" />
+        <PackageReference Include="Variant.MessageHandler.Epsagon" Version="5.0.1" />
+        <PackageReference Include="Variant.MessageHandler.HealthChecks" Version="5.1.0" />
+        <PackageReference Include="Variant.MessageHandler.SQS" Version="5.1.0" />
+        <PackageReference Include="Variant.MessageHandler.Tracing" Version="5.1.0" />
+        <PackageReference Include="Variant.TicketsShared.DataSource" Version="1.0.1" />
+        <PackageReference Include="Variant.TicketsShared.ErrorHandler" Version="1.0.1" />
+        <PackageReference Include="Variant.TicketsShared.Messaging" Version="1.0.1" />
+    </ItemGroup>
+
+</Project>
