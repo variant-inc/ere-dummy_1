@@ -11,12 +11,8 @@ export AWS_DEFAULT_REGION=us-east-1
 
 entityQueue=entity-queue
 entityTopic=entity-topic
-#ticketQueue=tickets-queue
-#ticketTopic=tickets
-queueTimeOut=20  #20 seconds
-
-# Create Outgoing Ticket Topic
-#awslocal sns create-topic --name $ticketTopic
+ticketTopic=tickets-topic
+queueTimeOut=5  #5 seconds
 
 # Create Incoming Entity Topic
 awslocal sns create-topic --name $entityTopic
@@ -34,18 +30,15 @@ awslocal sns subscribe \
           --notification-endpoint arn:aws:sqs:us-east-1:000000000000:$entityQueue \
           --attributes "RawMessageDelivery=true"
 
-# create Outgoing Ticket queue
-#awslocal sqs create-queue --queue-name $ticketQueue
-#
-#awslocal sqs set-queue-attributes \
-#          --queue-url http://localstack:4566/queue/$ticketQueue \
-#          --attributes "{ \"VisibilityTimeout\": \"$queueTimeOut\" }"
+# Create Outgoing Ticket Topic
+awslocal sns create-topic --name $ticketTopic
 
-# Subscribe ticket queue to ticket topic
+# This is blocked by OPT-2011
+# Subscribe the app to the Ticket Topic
 #awslocal sns subscribe \
 #          --topic-arn arn:aws:sns:us-east-1:000000000000:$ticketTopic \
-#          --protocol sqs \
-#          --notification-endpoint arn:aws:sqs:us-east-1:000000000000:$ticketQueue \
+#          --protocol http \
+#          --notification-endpoint http://localhost:4566/ticket-topic \
 #          --attributes "RawMessageDelivery=true"
 
 echo "FINISHED localstack config"
