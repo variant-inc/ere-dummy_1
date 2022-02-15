@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "TicketType.Microservice.Template.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    revision: {{ required "Revision tag is required" .Values.revision | quote }}
+    {{- include "TicketType.Microservice.Template.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "TicketType.Microservice.Template.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      namespace: {{ .Release.Namespace }}
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "TicketType.Microservice.Template.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "TicketType.Microservice.Template.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+      - name: ttmt-secrets
+        secret:
+          secretName: {{ required "Secret K8S resource name is required" .Values.awsSecretResourceName }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ required "Image tag is required" .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if or (.Values.health.enabled) (.Values.serviceMonitor.port) }}
+          ports:
+            {{- if .Values.health.enabled }}
+            - name: {{ required "Health port name is required" .Values.health.portName }}
+              containerPort: {{ required "Health port is required" .Values.health.targetPort }}
+              protocol: TCP
+            {{- end }}
+            {{- if .Values.serviceMonitor.enabled }}
+            - name: {{ required "Service monitor port name is required" .Values.serviceMonitor.portName }}
+              containerPort: {{ required "Service monitor port is required" .Values.serviceMonitor.targetPort }}
+              protocol: TCP
+            {{- end }}
+          {{- end }}
+          {{- if .Values.health.enabled }}
+          {{- with .Values.health }}
+          livenessProbe:
+            httpGet:
+              path: {{ required "Health path is required" .path }}
+              port: {{ required "Health port name is required" .portName }}
+            initialDelaySeconds: {{ .livenessProbe.initialDelaySeconds | default 10 }}
+            periodSeconds: {{ .livenessProbe.periodSeconds | default 10 }}
+            timeoutSeconds: {{ .livenessProbe.timeoutSeconds | default 1 }}
+          readinessProbe:
+            httpGet:
+              path: {{ required "Health path is required" .path }}
+              port: {{ required "Health port name is required" .portName }}
+            initialDelaySeconds: {{ .readinessProbe.initialDelaySeconds | default 10 }}
+            periodSeconds: {{ .readinessProbe.periodSeconds | default 10 }}
+            timeoutSeconds: {{ .readinessProbe.timeoutSeconds | default 1 }}
+          {{- end }}
+          {{- end }}
+          volumeMounts:
+          - name: ttmt-secrets
+            readOnly: true
+            mountPath: "/app/secrets/ttmtsecrets"
+          env:
+            {{- with .Values.envVars }}
+            - name: AWS_REGION
+              value: {{ required "The AWS region is required" .awsRegion | quote }}
+            - name: "LAUNCHDARKLY__KEY"
+              value: {{ required "The LaunchDarkly Key is Required" .launchDarkly.Key | quote }}
+            - name: "LAUNCHDARKLY__USERNAME"
+              value: {{ required "The LaunchDarkly UserName is Required" .launchDarkly.UserName | quote }}
+            - name: "EPSAGON_TOKEN"
+              value: {{ required ".epsagonToken is required" .epsagonToken | quote }}
+            - name: "EPSAGON_APP_NAME"
+              value: {{ required ".epsagonAppName is required" .epsagonAppName | quote }}
+            {{- end}}
+            {{- with .Values.serviceMonitor }}
+            - name: PROMETHEUS__SERVER__ENABLED
+              value: {{ .enabled | quote }}
+            {{- if .enabled }}
+            - name: PROMETHEUS__SERVER__HOSTNAME
+              value: {{ .matchedHost | quote }}
+            - name: PROMETHEUS__SERVER__PORT
+              value: {{ .targetPort | quote }}
+            - name: PROMETHEUS__SERVER__URL
+              value: {{ .path }}
+            - name: PROMETHEUS__USEHTTPS
+              value: {{ .useHttps | quote }}
+            {{- end }}
+            {{- end }}
+            {{- with .Values.health }}
+            - name: HEALTHCHECKS__ENABLED
+              value: {{ .enabled | quote }}
+            {{- if .enabled }}
+            - name: HEALTHCHECKS__SERVER__HOSTNAME
+              value: {{ .matchedHost }}
+            - name: HEALTHCHECKS__SERVER__PORT
+              value: {{ .targetPort | quote }}
+            - name: HEALTHCHECKS__SERVER__PATH
+              value: {{ .path }}
+            - name: HEALTHCHECKS__SERVER__PROTOCOL
+              value: {{ .protocol }}
+            {{- end }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

@@ -1,0 +1,29 @@
+{{- if .Values.serviceMonitor.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+# not service monitor since we do not have
+# a k8s service for queue workers
+kind: PodMonitor
+metadata:
+  labels:
+  {{- include "TicketType.Microservice.Template.labels" . | nindent 4 }}
+  name: {{ .Values.fullnameOverride }}
+spec:
+  jobLabel: {{ .Chart.Name }}
+  {{- if .Values.serviceMonitor.sampleLimit }}
+  sampleLimit: {{ .Values.serviceMonitor.sampleLimit }}
+  {{- end }}
+  podMetricsEndpoints:
+    - port: {{ required "Service monitor port name is required" .Values.serviceMonitor.portName }}
+      interval: "{{ .Values.serviceMonitor.scrapeIntervalInSeconds | default 10  }}s"
+      path: {{ required "Service monitor path is required" .Values.serviceMonitor.path }}
+      {{- if .Values.serviceMonitor.scrapeTimeoutInSeconds }}
+      scrapeTimeout: "{{ .Values.serviceMonitor.scrapeTimeoutInSeconds | default 20 }}s"
+  {{- end }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+  {{- include "TicketType.Microservice.Template.selectorLabels" . | nindent 6 }}
+{{- end }} 

@@ -1,0 +1,92 @@
+# Default values for Variant.Ticketing.FreshdeskHandler.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+revision: "Replace .Values.revision"
+image:
+  pullPolicy: Always
+  tag: "Replace .Values.image.tag"
+
+nameOverride: ""
+fullnameOverride: "Replace fullnameOverride"
+
+serviceAccount:
+  name: "Replace .Values.serviceAccount.name"
+  roleArn: "Replace .Values.serviceAccount.roleArn"
+
+awsSecretResourceName: "Replace .Values.awsSecretResourceName"
+awsSecretName: "Replace .Values.awsSecretName"
+
+envVars:
+  awsRegion: "Replace .Values.envVars.awsRegion"
+  epsagonToken: "Replace .Values.epsagonToken"
+  epsagonAppName: "Replace .Values.epsagonAppName"
+  launchDarkly:
+    Key: "Replace .Values.envVars.launchDarkly.Key"
+    UserName: "Replace .Values.envVars.launchDarkly.UserName"
+
+podAnnotations: {}
+
+podSecurityContext:
+  # workaround to read the aws creds mounted by the eks-iam integration
+  # on the service account, needed because the pods do not run as root
+  # sets the secondary group for pod runtime users to "nobody"
+  fsGroup: 65534
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
+health:
+  enabled: true
+  targetPort: 1337
+  portName: health
+  path: /health
+  # "+" is all hosts, but since we're not exposed to internet
+  # by default this is actually okay even though MSDN recommends
+  # strongly against doing this
+  matchedHost: "+"
+  # same reasoning for choosing HTTP instead of HTTPS
+  protocol: "http"
+  readinessProbe:
+    initialDelaySeconds: 10
+    periodSeconds: 270
+    timeoutSeconds: 60
+  livenessProbe:
+    initialDelaySeconds: 10
+    periodSeconds: 270
+    timeoutSeconds: 60
+
+serviceMonitor:
+  sampleLimit:
+  enabled: false
+  targetPort: 1234
+  portName: metrics
+  path: metrics/
+  scrapeIntervalInSeconds: 20
+  # should be less than interval
+  scrapeTimeoutInSeconds: 10
+  # see note in health for why these are acceptable defaults
+  matchedHost: "+"
+  useHttps: false
+
+vsd:
+  serviceMonitor:
+    enabled: true
+  istio:
+    enabled: true

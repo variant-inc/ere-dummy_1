@@ -1,0 +1,54 @@
+﻿name: Octo Push
+
+on:
+  push:
+
+env:
+  OCTOPUS_PROJECT_NAME: ${{ env.GITHUB_REPOSITORY }}
+  OCTOPUS_SPACE_NAME: Engineering
+  MASTER_BRANCH: master
+  FEATURE_BRANCH_REGEX: "[a-zA-Z]+-[0-9]+"
+  HELM_CHART_PATH: "helm/TicketType.Microservice.Template"
+
+jobs:
+  octoppppushhhh:
+    name: Push to Octopus
+    runs-on: eks
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup
+        uses: variant-inc/actions-setup@v1
+        id: lazy-setup
+          
+      - name: CI
+        id: lazy-action
+        uses: variant-inc/actions-dotnet@v1
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_REGION: us-east-1
+          GITHUB_USER: variant-inc
+        with:
+          src_file_dir_path: '.'
+          dockerfile_dir_path: '.'
+          nuget_push_enabled: 'true'
+          nuget_push_token: ${{ secrets.GITHUB_TOKEN }}
+          nuget_pull_token: ${{ secrets.PKG_READ }}
+          container_push_enabled: 'true'
+          ecr_repository: exception-recognition-engine/ticket-type-microservice
+          sonar_scan_in_docker: 'false'
+
+      - name: Action Octopus
+      uses: variant-inc/actions-octopus@v2
+      with:
+        default_branch: master
+        project_name: ${{ env.OCTOPUS_PROJECT_NAME }}
+        version: ${{ steps.lazy-setup.outputs.image_version }}
+        space_name: ${{ env.OCTOPUS_SPACE_NAME }}
+        charts_dir_path: ${{ env.HELM_CHART_PATH }}
+        is_infrastructure: false
+        feature_channel_branches: ${{ env.Feature_BRANCH_REGEX }}
