@@ -73,13 +73,17 @@ spec:
             {{- with .Values.envVars }}
             - name: AWS_REGION
               value: {{ required "The AWS region is required" .awsRegion | quote }}
-            - name: "LAUNCHDARKLY__KEY"
+            - name: SQS__QueueUrl
+              value: { { required "The SQS queue URL is Required" .SQS.QueueUrl | quote } }
+            - name: SNS__TicketTopicUrl
+              value: { { required "The SQS queue URL is Required" .SQS.QueueUrl | quote } }
+            - name: LaunchDarkly__Key
               value: {{ required "The LaunchDarkly Key is Required" .launchDarkly.Key | quote }}
-            - name: "LAUNCHDARKLY__USERNAME"
+            - name: LaunchDarkly__Username
               value: {{ required "The LaunchDarkly UserName is Required" .launchDarkly.UserName | quote }}
-            - name: "EPSAGON_TOKEN"
+            - name: EPSAGON_TOKEN
               value: {{ required ".epsagonToken is required" .epsagonToken | quote }}
-            - name: "EPSAGON_APP_NAME"
+            - name: EPSAGON_APP_NAME
               value: {{ required ".epsagonAppName is required" .epsagonAppName | quote }}
             {{- end}}
             {{- with .Values.serviceMonitor }}

@@ -51,6 +51,16 @@ resource "helm_release" "ticket_type_microservice_prototype" {
   }
 
   set {
+    name  = "envVars.SQS.QueueUrl"
+    value = var.entity_api_incoming_queue
+  }
+
+  set {
+    name  = "envVars.SNS.TicketTopicUrl"
+    value = var.ticketing_api_outgoing_topic
+  }
+
+  set {
     name  = "envVars.launchDarkly.Key"
     value = var.launch_darkly_key
   }
