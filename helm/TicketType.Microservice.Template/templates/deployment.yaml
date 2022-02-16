@@ -24,10 +24,6 @@ spec:
       serviceAccountName: {{ include "TicketType.Microservice.Template.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      volumes:
-      - name: ttmt-secrets
-        secret:
-          secretName: {{ required "Secret K8S resource name is required" .Values.awsSecretResourceName }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -65,10 +61,6 @@ spec:
             timeoutSeconds: {{ .readinessProbe.timeoutSeconds | default 1 }}
           {{- end }}
           {{- end }}
-          volumeMounts:
-          - name: ttmt-secrets
-            readOnly: true
-            mountPath: "/app/secrets/ttmtsecrets"
           env:
             {{- with .Values.envVars }}
             - name: AWS_REGION
