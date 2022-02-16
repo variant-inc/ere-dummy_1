@@ -25,10 +25,10 @@ provider "helm" {}
 provider "kubernetes" {}
 
 data "aws_caller_identity" "current" {}
-
-data "aws_kms_alias" "sns" {
-  name = var.kms_key_alias_sns
-}
+#
+#data "aws_kms_alias" "sns" {
+#  name = var.kms_key_alias_sns
+#}
 
 locals {
   aws_account_id    = data.aws_caller_identity.current.account_id
