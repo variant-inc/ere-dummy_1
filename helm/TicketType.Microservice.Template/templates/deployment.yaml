@@ -66,9 +66,9 @@ spec:
             - name: AWS_REGION
               value: {{ required "The AWS region is required" .awsRegion | quote }}
             - name: SQS__QueueUrl
-              value: { { required "The SQS queue URL is Required" .SQS.QueueUrl | quote } }
+              value: {{ required "The SQS queue URL is Required" .SQS.QueueUrl | quote }}
             - name: SNS__TicketTopicUrl
-              value: { { required "The SQS queue URL is Required" .SQS.QueueUrl | quote } }
+              value: {{ required "The Ticketing SNS Topic URL is Required" .SNS.TicketTopicUrl | quote }}
             - name: LaunchDarkly__Key
               value: {{ required "The LaunchDarkly Key is Required" .launchDarkly.Key | quote }}
             - name: LaunchDarkly__Username
