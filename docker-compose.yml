@@ -17,7 +17,8 @@ services:
     environment:
       - AWS__ServiceURL=http://localstack:4566
       - SQS__QueueUrl=http://localstack:4566/000000000000/entity-queue
-      - SNS__TopicUrl=http://localstack:4566/000000000000/entity-topic
+      - SNS__EntityTopicUrl=http://localstack:4566/000000000000/entity-topic
+      - SNS__TicketTopicUrl=http://localstack:4566/000000000000/tickets-topic
       - DOTNET_ENIVRONMENT=Development
       - DOTNET_USE_POLLING_FILE_WATCHER=1
     depends_on:

@@ -44,7 +44,3 @@ data "aws_iam_policy_document" "instance_assume_role_policy" {
     }
   }
 }
-
-data "aws_secretsmanager_secret" "ticket_type_aws_secrets" {
-  name = var.aws_secret_name
-}

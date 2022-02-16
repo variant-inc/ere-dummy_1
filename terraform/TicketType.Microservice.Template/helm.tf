@@ -30,16 +30,6 @@ resource "helm_release" "ticket_type_microservice_prototype" {
   }
 
   set {
-    name  = "awsSecretName"
-    value = data.aws_secretsmanager_secret.ticket_type_aws_secrets.name
-  }
-
-  set {
-    name  = "awsSecretResourceName"
-    value = var.aws_secret_resource_name
-  }
-
-  set {
     name  = "global.namespaceName"
     value = var.target_namespace
   }

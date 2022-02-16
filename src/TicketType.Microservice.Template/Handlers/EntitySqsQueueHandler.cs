@@ -21,6 +21,8 @@ namespace TicketType.Microservice.Template.Handlers
         // Required by IMessageHandler
         public async Task HandleEventAsync(Message message, CancellationToken token)
         {
+            _logger.LogInformation("Received SQS message");
+
             try
             {
                 message.Attributes.TryGetValue("type", out var type);
