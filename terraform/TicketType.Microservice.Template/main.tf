@@ -39,4 +39,5 @@ locals {
   legacy_deployable = "TicketType.Microservice.Template"
   kebab_name        = replace(lower(local.legacy_deployable), ".", "-")
   kebab_env_name    = "${var.environment}-${local.kebab_name}"
+  aws_policy_version = "2012-10-17"
 }

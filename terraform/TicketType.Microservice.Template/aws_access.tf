@@ -2,7 +2,6 @@ resource "aws_iam_role" "ticket_type_microservice_template" {
   name               = local.env_name
   description        = "IAM role for ${local.kebab_name} in ${var.environment} environment"
   assume_role_policy = data.aws_iam_policy_document.instance_assume_role_policy.json
-  tags = module.tags.tags
 
   inline_policy {
     name = local.kebab_env_name
@@ -11,7 +10,7 @@ resource "aws_iam_role" "ticket_type_microservice_template" {
 }
 
 data "aws_iam_policy_document" "ticket_type_microservice_template_policy_document" {
-  version = "2012-10-17"
+  version = local.aws_policy_version
 
 #  statement {
 #    effect = "Allow"
@@ -30,7 +29,7 @@ data "aws_iam_policy_document" "ticket_type_microservice_template_policy_documen
 }
 
 data "aws_iam_policy_document" "instance_assume_role_policy" {
-  version = "2012-10-17"
+  version = local.aws_policy_version
   statement {
     effect = "Allow"
     principals {
