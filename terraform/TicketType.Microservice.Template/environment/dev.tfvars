@@ -1,4 +1,4 @@
-aws_region                   = "us-east-1"
+aws_default_region           = "us-east-1"
 k8s_serviceaccount           = "variant-ticketing-handler"
 aws_account_id               = "064859874041"
 ticketing_handler_queue_name = "dev-ticketing_handler"

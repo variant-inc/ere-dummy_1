@@ -15,7 +15,7 @@ jobs:
     runs-on: eks
 
     steps:
-      - name: Get Octopus Projact Name
+      - name: Get Octopus Project Name
         id: octopus-project-name
         shell: bash
         run: echo "::set-output name=name::$(echo ${GITHUB_REPOSITORY} | perl -ne 'if (/^[a-z-]+\/([a-z\-]+)$/) { print $1 }' | head -1)"
