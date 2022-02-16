@@ -15,13 +15,16 @@ namespace TicketType.Microservice.Template.UnitTests
             ["AWS:REGION"] = "nomatter",
             ["AWS:SERVICEURL"] = "http://aws-dude.com/",
             ["AWS:USEHTTP"] = "true",
-            ["SQS:QUEUEURL"] = "https://queue-baby.net"
+            ["SQS:QUEUEURL"] = "https://queue-baby.net",
+            ["HealthChecks:Enabled"] = "true",
         };
 
         [Theory]
-        [InlineData(typeof(EntitySqsQueueHandler))]
-        public void CanResolveExpectedDependencies(Type dependency)
+        [InlineData(typeof(EntitySqsQueueHandler), "true")]
+        [InlineData(typeof(EntitySqsQueueHandler), "false")]
+        public void CanResolveExpectedDependencies(Type dependency, string enableHealthCheck)
         {
+            ConfigurationSettings["HealthChecks:Enabled"] = enableHealthCheck;
             var hostBuilderContext = new HostBuilderContext(new Dictionary<object, object>())
             {
                 Configuration = new ConfigurationBuilder()

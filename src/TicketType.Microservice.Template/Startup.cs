@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Epsagon.Dotnet.Instrumentation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,6 +21,7 @@ namespace TicketType.Microservice.Template
     {
         public IConfiguration Configuration { get; }
 
+        [ExcludeFromCodeCoverage]
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
