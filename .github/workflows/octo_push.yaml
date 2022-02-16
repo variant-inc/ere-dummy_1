@@ -4,7 +4,6 @@ on:
   push:
 
 env:
-  OCTOPUS_PROJECT_NAME: ${{ GITHUB_REPOSITORY }}
   OCTOPUS_SPACE_NAME: Engineering
   MASTER_BRANCH: master
   FEATURE_BRANCH_REGEX: "[a-zA-Z]+-[0-9]+"
@@ -16,6 +15,11 @@ jobs:
     runs-on: eks
 
     steps:
+      - name: Get Octopus Projact Name
+        id: octopus-project-name
+        shell: bash
+        run: echo "::set-output name=name::$(echo ${{ GITHUB_REPOSITORY }} | perl -ne 'if (/^[a-z-]+\/([a-z\-]+)$/) { print $1 }' | head -1)"
+
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
@@ -46,7 +50,7 @@ jobs:
         uses: variant-inc/actions-octopus@v2
         with:
           default_branch: master
-          project_name: ${{ env.OCTOPUS_PROJECT_NAME }}
+          project_name: ${{ steps.octopus-project-name.outputs.name }}
           version: ${{ steps.lazy-setup.outputs.image_version }}
           space_name: ${{ env.OCTOPUS_SPACE_NAME }}
           charts_dir_path: ${{ env.HELM_CHART_PATH }}
