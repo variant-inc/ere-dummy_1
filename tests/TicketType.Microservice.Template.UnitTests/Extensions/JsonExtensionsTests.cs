@@ -10,6 +10,8 @@ namespace TicketType.Microservice.Template.UnitTests.Extensions
 {
     public class JsonExtensionsTests
     {
+        private string _defaultMessageBody = "Is the loneliest number";
+
         [Fact]
         public void DeserializeTest_DefaultSettings_Ok()
         {
@@ -20,22 +22,22 @@ namespace TicketType.Microservice.Template.UnitTests.Extensions
             var result = message.Body.Deserialize<EntityApiMessage>();
 
             Assert.IsType<EntityApiMessage>(result);
-            Assert.StrictEqual("Is the loneliest number", result.Message);
+            Assert.StrictEqual(_defaultMessageBody, result.Message);
         }
 
-        // [Fact]
-        // public void DeserializeTest_SnakeCaseSettings_Ok()
-        // {
-        //     var message = new Message
-        //     {
-        //         Body = JsonStub.GetGoodJson()
-        //     };
-        //     var result = message.Body.Deserialize<EntityApiMessage>(JsonExtensions.SnakeCaseSettings);
-        //
-        //     Assert.IsType<EntityApiMessage>(result);
-        //     Assert.StrictEqual("Is the loneliest number", result.Message);
-        // }
-        //
+        [Fact]
+        public void DeserializeTest_SnakeCaseSettings_Ok()
+        {
+            var message = new Message
+            {
+                Body = JsonStub.GetGoodJson()
+            };
+            var result = message.Body.Deserialize<EntityApiMessage>(JsonExtensions.SnakeCaseSettings);
+        
+            Assert.IsType<EntityApiMessage>(result);
+            Assert.StrictEqual(_defaultMessageBody, result.Message);
+        }
+
         // [Fact]
         // public void DeserializeTest_DefaultSettings_Throws()
         // {
