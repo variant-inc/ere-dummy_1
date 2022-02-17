@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using TicketType.Microservice.Template.Extensions;
 using TicketType.Microservice.Template.Models;
 using TicketType.Microservice.Template.UnitTests.Stubs;
@@ -25,40 +23,40 @@ namespace TicketType.Microservice.Template.UnitTests.Extensions
             Assert.StrictEqual("Is the loneliest number", result.Message);
         }
 
-        [Fact]
-        public void DeserializeTest_SnakeCaseSettings_Ok()
-        {
-            var message = new Message
-            {
-                Body = JsonStub.GetGoodJson()
-            };
-            var result = message.Body.Deserialize<EntityApiMessage>(JsonExtensions.SnakeCaseSettings);
-
-            Assert.IsType<EntityApiMessage>(result);
-            Assert.StrictEqual("Is the loneliest number", result.Message);
-        }
-
-        [Fact]
-        public void DeserializeTest_DefaultSettings_Throws()
-        {
-            var message = new Message
-            {
-                Body = JsonStub.GetBadJson()
-            };
-
-            Assert.Throws<JsonReaderException>(() => message.Body.Deserialize<EntityApiMessage>());
-        }
-
-        [Fact]
-        public void DefaultSettingsTest_SerializingDate()
-        {
-            const string dummyDateString = "2002-05-26T01:23:45Z";
-            var parsedDate = DateTime.Parse(dummyDateString);
-
-            var json = parsedDate.Serialize();
-            
-            Assert.Equal("\"2002-05-25T21:23:45-04:00\"" , json);
-        }
+        // [Fact]
+        // public void DeserializeTest_SnakeCaseSettings_Ok()
+        // {
+        //     var message = new Message
+        //     {
+        //         Body = JsonStub.GetGoodJson()
+        //     };
+        //     var result = message.Body.Deserialize<EntityApiMessage>(JsonExtensions.SnakeCaseSettings);
+        //
+        //     Assert.IsType<EntityApiMessage>(result);
+        //     Assert.StrictEqual("Is the loneliest number", result.Message);
+        // }
+        //
+        // [Fact]
+        // public void DeserializeTest_DefaultSettings_Throws()
+        // {
+        //     var message = new Message
+        //     {
+        //         Body = JsonStub.GetBadJson()
+        //     };
+        //
+        //     Assert.Throws<JsonReaderException>(() => message.Body.Deserialize<EntityApiMessage>());
+        // }
+        //
+        // [Fact]
+        // public void DefaultSettingsTest_SerializingDate()
+        // {
+        //     const string dummyDateString = "2002-05-26T01:23:45Z";
+        //     var parsedDate = DateTime.Parse(dummyDateString);
+        //
+        //     var json = parsedDate.Serialize();
+        //     
+        //     Assert.Equal("\"2002-05-25T21:23:45-04:00\"" , json);
+        // }
 
         [Fact]
         public void SnakeCaseSettingsTest_SerializingDate()
