@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Newtonsoft.Json;
 using TicketType.Microservice.Template.Extensions;
 using TicketType.Microservice.Template.Models;
@@ -53,11 +54,16 @@ namespace TicketType.Microservice.Template.UnitTests.Extensions
         public void DefaultSettingsTest_SerializingDate()
         {
             const string dummyDateString = "2002-05-26T01:23:45Z";
-            var parsedDate = DateTime.Parse(dummyDateString);
-        
-            var json = parsedDate.Serialize();
+            DateTime dateResult;
+            var culture = CultureInfo.CreateSpecificCulture("en-US");
+            var styles = DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeLocal;
+
+            if (DateTime.TryParse(dummyDateString, culture, styles, out dateResult))
+            {
+                var json = dateResult.Serialize();
             
-            Assert.Equal("\"2002-05-25T21:23:45-04:00\"" , json);
+                Assert.Equal($"\"{dummyDateString}\"" , json);
+            }
         }
 
         [Fact]
