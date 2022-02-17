@@ -47,6 +47,7 @@ namespace TicketType.Microservice.Template.Handlers
 
         private async Task ProcessMessageAsync(Message message, CancellationToken token)
         {
+            _logger.LogInformation("Starting to process message...");
             var entityApiMessage = message.Body.Deserialize<EntityApiMessage>();
         }
     }
