@@ -23,7 +23,7 @@ namespace TicketType.Microservice.Template.UnitTests.Extensions
             var result = message.Body.Deserialize<EntityApiMessage>();
 
             Assert.IsType<EntityApiMessage>(result);
-            Assert.StrictEqual(_defaultMessageBody, result.Message);
+            Assert.Equal(_defaultMessageBody, result.Message);
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace TicketType.Microservice.Template.UnitTests.Extensions
             var result = message.Body.Deserialize<EntityApiMessage>(JsonExtensions.SnakeCaseSettings);
         
             Assert.IsType<EntityApiMessage>(result);
-            Assert.StrictEqual(_defaultMessageBody, result.Message);
+            Assert.Equal(_defaultMessageBody, result.Message);
         }
 
         [Fact]

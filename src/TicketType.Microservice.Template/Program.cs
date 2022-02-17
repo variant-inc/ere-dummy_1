@@ -5,7 +5,7 @@ using Serilog;
 namespace TicketType.Microservice.Template
 {
     [ExcludeFromCodeCoverage]
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
