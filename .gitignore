@@ -1,6 +1,5 @@
 /**/.DS_Store
 /**/.env
-nuget.config
 
 # User-specific files
 *.suo
@@ -206,6 +205,7 @@ project.lock.json
 .localstack/
 # Local .terraform directories
 **/.terraform/*
+**/.terraform.lock.hcl
 
 # .tfstate files
 *.tfstate

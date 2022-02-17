@@ -1,0 +1,3 @@
+bucket = "engineering.terraform"
+key = "dev-ticketing-freshdesk-handler"
+region = "us-east-1"
