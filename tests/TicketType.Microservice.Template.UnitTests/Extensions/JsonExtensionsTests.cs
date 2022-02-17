@@ -38,16 +38,16 @@ namespace TicketType.Microservice.Template.UnitTests.Extensions
             Assert.StrictEqual(_defaultMessageBody, result.Message);
         }
 
-        // [Fact]
-        // public void DeserializeTest_DefaultSettings_Throws()
-        // {
-        //     var message = new Message
-        //     {
-        //         Body = JsonStub.GetBadJson()
-        //     };
-        //
-        //     Assert.Throws<JsonReaderException>(() => message.Body.Deserialize<EntityApiMessage>());
-        // }
+        [Fact]
+        public void DeserializeTest_DefaultSettings_Throws()
+        {
+            var message = new Message
+            {
+                Body = JsonStub.GetBadJson()
+            };
+        
+            Assert.Throws<JsonReaderException>(() => message.Body.Deserialize<EntityApiMessage>());
+        }
         //
         // [Fact]
         // public void DefaultSettingsTest_SerializingDate()
