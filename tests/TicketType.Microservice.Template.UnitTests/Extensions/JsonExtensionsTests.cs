@@ -48,17 +48,17 @@ namespace TicketType.Microservice.Template.UnitTests.Extensions
         
             Assert.Throws<JsonReaderException>(() => message.Body.Deserialize<EntityApiMessage>());
         }
-        //
-        // [Fact]
-        // public void DefaultSettingsTest_SerializingDate()
-        // {
-        //     const string dummyDateString = "2002-05-26T01:23:45Z";
-        //     var parsedDate = DateTime.Parse(dummyDateString);
-        //
-        //     var json = parsedDate.Serialize();
-        //     
-        //     Assert.Equal("\"2002-05-25T21:23:45-04:00\"" , json);
-        // }
+
+        [Fact]
+        public void DefaultSettingsTest_SerializingDate()
+        {
+            const string dummyDateString = "2002-05-26T01:23:45Z";
+            var parsedDate = DateTime.Parse(dummyDateString);
+        
+            var json = parsedDate.Serialize();
+            
+            Assert.Equal("\"2002-05-25T21:23:45-04:00\"" , json);
+        }
 
         [Fact]
         public void SnakeCaseSettingsTest_SerializingDate()
