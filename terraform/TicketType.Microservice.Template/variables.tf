@@ -65,6 +65,8 @@ variable "octopus_tags" {
 // SNS/SQS
 variable "entity_queue_retention_seconds" {
   type = number
+  default     = 604800 # 7 days
+  description = "Number of seconds the queue retains messages"
 }
 
 variable "entity_api_incoming_topic" {
