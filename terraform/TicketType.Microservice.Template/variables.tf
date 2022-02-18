@@ -21,14 +21,6 @@ variable "aws_default_region" {
   default = "us-east-1"
 }
 
-variable "aws_secret_name" {
-  type = string
-}
-
-variable "aws_secret_resource_name" {
-  type = string
-}
-
 variable "image_tag" {
   type = string
 }
@@ -70,13 +62,9 @@ variable "octopus_tags" {
   type = map(string)
 }
 
+// SNS/SQS
 variable "entity_queue_retention_seconds" {
   type = number
-}
-
-variable "kms_key_alias_incoming_sns" {
-  type    = string
-  default = "alias/ops/sns"
 }
 
 variable "entity_api_incoming_topic" {
@@ -89,4 +77,9 @@ variable "entity_api_incoming_queue" {
 
 variable "ticketing_api_outgoing_topic" {
   type = string
+}
+
+variable "kms_key_alias_sns" {
+  type    = string
+  default = "alias/ops/sns"
 }

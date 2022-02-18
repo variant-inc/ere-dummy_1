@@ -26,6 +26,10 @@ provider "kubernetes" {}
 
 data "aws_caller_identity" "current" {}
 
+data "aws_kms_alias" "sns_key" {
+  name = var.kms_key_alias_sns
+}
+
 locals {
   aws_account_id    = data.aws_caller_identity.current.account_id
   project_name      = "exception-recognition-engine"
@@ -36,4 +40,5 @@ locals {
   kebab_name        = replace(lower(local.legacy_deployable), ".", "-")
   kebab_env_name    = "${var.environment}-${local.kebab_name}"
   aws_policy_version = "2012-10-17"
+  sns_ticketing_topic_name = "${var.environment}-${var.ticketing_api_outgoing_topic}"
 }
