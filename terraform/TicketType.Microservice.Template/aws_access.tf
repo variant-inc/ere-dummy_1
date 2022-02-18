@@ -16,6 +16,14 @@ data "aws_iam_policy_document" "ticket_type_microservice_template_policy_documen
   statement {
     effect = "Allow"
     resources = [
+      aws_sns_topic.outgoing_exceptions_topic.arn
+    ]
+    actions = ["sns:Publish"]
+  }
+
+  statement {
+    effect = "Allow"
+    resources = [
       data.aws_kms_alias.sns_key.target_key_arn,
     ]
     actions = [
