@@ -23,7 +23,7 @@ awslocal sqs set-queue-attributes \
           --queue-url http://localstack:4566/queue/$entityQueue \
           --attributes "{ \"VisibilityTimeout\": \"$queueTimeOut\" }"
 
-# Subscribe entity queue to entity topic
+# Subscribe Incoming entity queue to Incoming entity topic
 awslocal sns subscribe \
           --topic-arn arn:aws:sns:us-east-1:000000000000:$entityTopic \
           --protocol sqs \
