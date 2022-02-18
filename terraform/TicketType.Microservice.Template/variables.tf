@@ -70,7 +70,12 @@ variable "octopus_tags" {
   type = map(string)
 }
 
-variable "kms_key_alias_sns" {
+variable "kms_key_alias_sns_incoming" {
+  type    = string
+  default = "alias/ops/sns"
+}
+
+variable "kms_key_alias_sns_outgoing" {
   type    = string
   default = "alias/ops/sns"
 }
@@ -80,5 +85,10 @@ variable "entity_api_incoming_queue" {
 }
 
 variable "ticketing_api_outgoing_topic" {
+  type = string
+}
+
+// SNS/SQS
+variable "outgoing_exceptions_topic_name" {
   type = string
 }
