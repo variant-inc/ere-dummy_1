@@ -13,7 +13,7 @@ using Variant.MessageHandler.HealthChecks.HealthChecks.AtCapacityWithinWindow;
 using Variant.MessageHandler.HealthChecks.HealthChecks.AverageMessageProcessingDuration;
 using Variant.MessageHandler.HealthChecks.HealthChecks.FailedMessageRatio;
 using Variant.MessageHandler.HealthChecks.HealthChecks.TimeSinceLastBatchReceive;
-using Variant.MessageHandler.Sqs.DependencyInjection;
+using Variant.TicketsShared.Messaging.DependencyInjection;
 
 namespace TicketType.Microservice.Template
 {
@@ -51,11 +51,9 @@ namespace TicketType.Microservice.Template
                 }
             }
 
-            services.AddFeatureFlags(config);
-            services.AddSqsMessageRetriever<EntitySqsQueueHandler>(
-                config.GetAWSOptions(),
-                config.GetSection("SQS"),
-                ConfigureMessageConfigurator);
+            services.AddFeatureFlags(config)
+                .AddSQSSharedMessaging<EntitySqsQueueHandler>(
+                config);
 
         }
 

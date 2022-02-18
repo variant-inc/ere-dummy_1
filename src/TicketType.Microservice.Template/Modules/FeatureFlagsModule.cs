@@ -11,11 +11,13 @@ namespace TicketType.Microservice.Template.Modules
     [ExcludeFromCodeCoverage]
     public static class FeatureFlagsModule
     {
-        public static void AddFeatureFlags(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddFeatureFlags(this IServiceCollection services, IConfiguration configuration)
         {
             Configure(configuration,services);
             RegisterServices(services);
-            RegisterFlags(services);          
+            RegisterFlags(services);
+
+            return services;
         }
 
         private static void Configure(IConfiguration configuration, IServiceCollection services)
