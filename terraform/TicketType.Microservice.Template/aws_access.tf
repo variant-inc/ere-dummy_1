@@ -31,6 +31,20 @@ data "aws_iam_policy_document" "ticket_type_microservice_template_policy_documen
       "kms:Decrypt"
     ]
   }
+
+  statement {
+    effect = "Allow"
+    resources = [
+      aws_sqs_queue.incoming_exceptions_queue.arn
+    ]
+    actions = [
+      "sqs:ChangeMessageVisibility",
+      "sqs:ChangeMessageVisibilityBatch",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:ReceiveMessage"
+    ]
+  }
 }
 
 data "aws_iam_policy_document" "instance_assume_role_policy" {
