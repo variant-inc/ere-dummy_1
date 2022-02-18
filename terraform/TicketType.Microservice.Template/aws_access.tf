@@ -12,20 +12,17 @@ resource "aws_iam_role" "ticket_type_microservice_template" {
 data "aws_iam_policy_document" "ticket_type_microservice_template_policy_document" {
   version = local.aws_policy_version
 
-#  statement {
-#    effect = "Allow"
-#  }
-#
-#  statement {
-#    effect = "Allow"
-#    resources = [
-#      data.aws_kms_alias.sns.target_key_arn,
-#    ]
-#    actions = [
-#      "kms:GenerateDataKey",
-#      "kms:Decrypt"
-#    ]
-#  }
+  // Allow SNS Access
+  statement {
+    effect = "Allow"
+    resources = [
+      data.aws_kms_alias.sns_key.target_key_arn,
+    ]
+    actions = [
+      "kms:GenerateDataKey",
+      "kms:Decrypt"
+    ]
+  }
 }
 
 data "aws_iam_policy_document" "instance_assume_role_policy" {
