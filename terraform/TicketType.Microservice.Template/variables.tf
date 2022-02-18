@@ -70,9 +70,17 @@ variable "octopus_tags" {
   type = map(string)
 }
 
-variable "kms_key_alias_sns" {
+variable "entity_queue_retention_seconds" {
+  type = number
+}
+
+variable "kms_key_alias_incoming_sns" {
   type    = string
   default = "alias/ops/sns"
+}
+
+variable "entity_api_incoming_topic" {
+  type = string
 }
 
 variable "entity_api_incoming_queue" {
