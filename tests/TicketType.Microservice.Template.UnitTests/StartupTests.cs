@@ -19,12 +19,10 @@ namespace TicketType.Microservice.Template.UnitTests
             ["HealthChecks:Enabled"] = "true",
         };
 
-        [Theory]
-        [InlineData(typeof(EntitySqsQueueHandler), "true")]
-        [InlineData(typeof(EntitySqsQueueHandler), "false")]
-        public void CanResolveExpectedDependencies(Type dependency, string enableHealthCheck)
+        [Fact]
+        public void CanResolveExpectedDependencies()
         {
-            ConfigurationSettings["HealthChecks:Enabled"] = enableHealthCheck;
+            var dependency = typeof(EntitySqsQueueHandler);
             var hostBuilderContext = new HostBuilderContext(new Dictionary<object, object>())
             {
                 Configuration = new ConfigurationBuilder()

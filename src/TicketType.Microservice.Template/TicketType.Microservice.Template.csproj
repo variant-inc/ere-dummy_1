@@ -30,7 +30,7 @@
         <PackageReference Include="Variant.MessageHandler.Tracing" Version="5.1.0" />
         <PackageReference Include="Variant.TicketsShared.DataSource" Version="1.0.1" />
         <PackageReference Include="Variant.TicketsShared.ErrorHandler" Version="1.0.1" />
-        <PackageReference Include="Variant.TicketsShared.Messaging" Version="1.0.1" />
+        <PackageReference Include="Variant.TicketsShared.Messaging" Version="1.0.4" />
     </ItemGroup>
 
 </Project>
