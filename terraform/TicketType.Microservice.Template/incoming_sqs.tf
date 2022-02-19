@@ -2,7 +2,6 @@ resource "aws_sqs_queue" "incoming_exceptions_queue" {
   name                      = local.sqs_incoming_queue_name
   kms_master_key_id         = data.aws_kms_alias.sns_key.id
   message_retention_seconds = var.entity_queue_retention_seconds
-  tags = module.tags.tags
 }
 
 resource "aws_sqs_queue_policy" "incoming_exceptions_queue_policy" {
