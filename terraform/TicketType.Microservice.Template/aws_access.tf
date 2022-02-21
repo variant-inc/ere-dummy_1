@@ -10,9 +10,9 @@ resource "aws_iam_role" "ticket_type_microservice_template" {
 }
 
 data "aws_iam_policy_document" "ticket_type_microservice_template_policy_document" {
-  version = local.aws_policy_version
+  version = var.aws_policy_version
 
-  // Allow SNS Access
+  // Allow SNS Access & permissions
   statement {
     effect = "Allow"
     resources = [
@@ -32,6 +32,7 @@ data "aws_iam_policy_document" "ticket_type_microservice_template_policy_documen
     ]
   }
 
+  // Allow SQS Access & permissions
   statement {
     effect = "Allow"
     resources = [
@@ -48,7 +49,7 @@ data "aws_iam_policy_document" "ticket_type_microservice_template_policy_documen
 }
 
 data "aws_iam_policy_document" "instance_assume_role_policy" {
-  version = local.aws_policy_version
+  version = var.aws_policy_version
   statement {
     effect = "Allow"
     principals {
