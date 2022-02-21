@@ -27,6 +27,10 @@ variable "aws_policy_version" {
   type = string
 }
 
+variable "project_name" {
+  type = string
+}
+
 // AWS Settings
 variable "aws_default_region" {
   type    = string

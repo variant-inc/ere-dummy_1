@@ -32,10 +32,8 @@ data "aws_kms_alias" "sns_key" {
 
 locals {
   aws_account_id    = data.aws_caller_identity.current.account_id
-  project_name      = "exception-recognition-engine"
-  env_deployable    = "${var.environment}-${local.project_name}-${var.deployable_name}"
+  env_deployable    = "${var.environment}-${var.project_name}-${var.deployable_name}"
   env_name          = "${var.environment}-${var.deployable_name}"
-#  legacy_deployable = "TicketType.Microservice.Template"
   kebab_name        = replace(lower(var.legacy_deployable_name), ".", "-")
   kebab_env_name    = "${var.environment}-${local.kebab_name}"
   sns_ticketing_topic_name = "${var.environment}-${var.ticketing_api_outgoing_topic_name}"
