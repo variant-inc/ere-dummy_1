@@ -15,9 +15,6 @@ serviceAccount:
   name: "Replace .Values.serviceAccount.name"
   roleArn: "Replace .Values.serviceAccount.roleArn"
 
-awsSecretResourceName: "Replace .Values.awsSecretResourceName"
-awsSecretName: "Replace .Values.awsSecretName"
-
 envVars:
   awsRegion: "Replace .Values.envVars.awsRegion"
   epsagonToken: "Replace .Values.epsagonToken"
@@ -25,6 +22,12 @@ envVars:
   launchDarkly:
     Key: "Replace .Values.envVars.launchDarkly.Key"
     UserName: "Replace .Values.envVars.launchDarkly.UserName"
+  SNS:
+    OutgoingTopicArn: "Replace .Values.envVars.SNS.OutgoingTopicArn"
+    OutgoingTopicName: "Replace .Values.envVars.SNS.OutgoingTopicName"
+  SQS:
+    QueueName: "Replace .Values.envVars.SQS.QueueName"
+    QueueUrl: "Replace .Values.envVars.SQS.QueueUrl"
 
 podAnnotations: {}
 

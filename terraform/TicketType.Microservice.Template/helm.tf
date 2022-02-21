@@ -1,6 +1,6 @@
 resource "helm_release" "ticket_type_microservice_prototype" {
-  chart     = "../../helm/${local.legacy_deployable}"
-  name      = local.deployable
+  chart     = "../../helm/${var.legacy_deployable_name}"
+  name      = var.deployable_name
   namespace = var.target_namespace
   lint      = true
 
@@ -11,7 +11,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "fullnameOverride"
-    value = local.deployable
+    value = var.deployable_name
   }
 
   set {
@@ -36,7 +36,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "global.service.name"
-    value = local.deployable
+    value = var.deployable_name
   }
 
   set {
@@ -52,14 +52,23 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "envVars.SQS.QueueUrl"
-    value = var.entity_api_incoming_queue
+    value = var.entity_api_incoming_queue_url
   }
 
   set {
-    name  = "envVars.SNS.TicketTopicUrl"
-    value = var.ticketing_api_outgoing_topic
+    name  = "envVars.SQS.QueueName"
+    value = var.entity_api_incoming_queue_name
   }
-  
+
+  set {
+    name  = "envVars.SNS.OutgoingTopicName"
+    value = var.ticketing_api_outgoing_topic_name
+  }
+
+  set {
+    name  = "envVars.SNS.OutgoingTopicArn"
+    value = var.ticketing_api_outgoing_topic_arn
+  }
 
   set {
     name  = "envVars.launchDarkly.Key"

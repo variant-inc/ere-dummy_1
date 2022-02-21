@@ -15,6 +15,14 @@ variable "revision" {
   type = string
 }
 
+variable "deployable_name" {
+  type = string
+}
+
+variable "legacy_deployable_name" {
+  type = string
+}
+
 // AWS Settings
 variable "aws_default_region" {
   type    = string
@@ -73,11 +81,15 @@ variable "entity_api_incoming_topic" {
   type = string
 }
 
-variable "entity_api_incoming_queue" {
+variable "entity_api_incoming_queue_name" {
   type = string
 }
 
-variable "ticketing_api_outgoing_topic" {
+variable "entity_api_incoming_queue_url" {
+  type = string
+}
+
+variable "ticketing_api_outgoing_topic_name" {
   type = string
 }
 
