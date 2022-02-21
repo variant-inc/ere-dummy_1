@@ -1,10 +1,10 @@
 resource "aws_iam_role" "ticket_type_microservice_template" {
   name               = local.env_name
-  description        = "IAM role for ${local.kebab_name} in ${var.environment} environment"
+  description        = "IAM role for ${local.normalized_deploy_name} in ${var.environment} environment"
   assume_role_policy = data.aws_iam_policy_document.instance_assume_role_policy.json
 
   inline_policy {
-    name = local.kebab_env_name
+    name = local.env_name
     policy = data.aws_iam_policy_document.ticket_type_microservice_template_policy_document.json
   }
 }
@@ -48,6 +48,7 @@ data "aws_iam_policy_document" "ticket_type_microservice_template_policy_documen
   }
 }
 
+// var.oidc_provider is set by scripts/octo/plan.sh & delpoy.sh
 data "aws_iam_policy_document" "instance_assume_role_policy" {
   version = var.aws_policy_version
   statement {

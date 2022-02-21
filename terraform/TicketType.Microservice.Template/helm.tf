@@ -1,8 +1,21 @@
+// var.deployable is set in scripts/octo/plan.sh & delpoy.sh
 resource "helm_release" "ticket_type_microservice_prototype" {
-  chart     = "../../helm/${var.legacy_deployable_name}"
-  name      = var.deployable_name
+  chart     = "../../helm/${var.deployable}"
+  name      = local.normalized_deploy_name
   namespace = var.target_namespace
   lint      = true
+
+  // The following are set in scripts/octo/plan.sh & delpoy.sh:
+  set {
+    name  = "revision"
+    value = var.revision
+  }
+
+  set {
+    name  = "image.tag"
+    value = var.image_tag
+  }
+  /// End
 
   set {
     name  = "forceRefresh"
@@ -11,12 +24,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "fullnameOverride"
-    value = var.deployable_name
-  }
-
-  set {
-    name  = "image.tag"
-    value = var.image_tag
+    value = local.normalized_deploy_name
   }
 
   set {
@@ -36,12 +44,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "global.service.name"
-    value = var.deployable_name
-  }
-
-  set {
-    name  = "revision"
-    value = var.revision
+    value = local.normalized_deploy_name
   }
 
   // Environment vars

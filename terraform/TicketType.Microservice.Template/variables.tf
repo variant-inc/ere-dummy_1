@@ -1,4 +1,8 @@
 // Variant Settings
+variable "deployable" {
+  type=string
+}
+
 variable "environment" {
   type = string
 }
@@ -12,14 +16,6 @@ variable "owner" {
 }
 
 variable "revision" {
-  type = string
-}
-
-variable "deployable_name" {
-  type = string
-}
-
-variable "legacy_deployable_name" {
   type = string
 }
 

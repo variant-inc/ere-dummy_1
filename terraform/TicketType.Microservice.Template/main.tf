@@ -30,12 +30,12 @@ data "aws_kms_alias" "sns_key" {
   name = var.kms_key_alias_sns
 }
 
+# var.environment is set in scripts/octo/plan.sh & delpoy.sh:
 locals {
   aws_account_id    = data.aws_caller_identity.current.account_id
-  env_deployable    = "${var.environment}-${var.project_name}-${var.deployable_name}"
-  env_name          = "${var.environment}-${var.deployable_name}"
-  kebab_name        = replace(lower(var.legacy_deployable_name), ".", "-")
-  kebab_env_name    = "${var.environment}-${local.kebab_name}"
+  normalized_deploy_name = replace(lower(var.deployable), ".", "-")
+  env_deployable    = "${var.environment}-${var.project_name}-${local.normalized_deploy_name}"
+  env_name          = "${var.environment}-${local.normalized_deploy_name}"
   sns_ticketing_topic_name = "${var.environment}-${var.ticketing_api_outgoing_topic_name}"
   sns_incoming_topic_name = "${var.environment}-${var.entity_api_incoming_topic_name}"
   sns_incoming_topic_data_name = "${var.environment}-${var.entity_api_incoming_topic_name}-data"
