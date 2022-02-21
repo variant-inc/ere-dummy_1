@@ -1,3 +1,4 @@
+aws_policy_version           = "2012-10-17"
 aws_default_region           = "us-east-1"
 k8s_serviceaccount           = "ticket-type-microservice-dev"
 team = "dev"
