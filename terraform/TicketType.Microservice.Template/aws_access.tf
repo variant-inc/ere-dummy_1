@@ -1,5 +1,6 @@
 resource "aws_iam_role" "ticket_type_microservice_template" {
   name               = local.env_name
+  // var.environment is set by scripts/octo/plan.sh & delpoy.sh
   description        = "IAM role for ${local.normalized_deploy_name} in ${var.environment} environment"
   assume_role_policy = data.aws_iam_policy_document.instance_assume_role_policy.json
 

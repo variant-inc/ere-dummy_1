@@ -4,6 +4,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
   name      = local.normalized_deploy_name
   namespace = var.target_namespace
   lint      = true
+  cleanup_on_fail = true
 
   // The following are set in scripts/octo/plan.sh & delpoy.sh:
   set {
