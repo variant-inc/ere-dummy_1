@@ -19,7 +19,7 @@ namespace TicketType.Microservice.Template.Handlers
         {
             if (_checklist.TractorApiReady)
             {
-                
+                _logger.LogInformation("Tractor is ready!");
             }
         }
     }

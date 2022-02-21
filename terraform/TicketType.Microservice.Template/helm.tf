@@ -59,6 +59,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
     name  = "envVars.SNS.TicketTopicUrl"
     value = var.ticketing_api_outgoing_topic
   }
+  
 
   set {
     name  = "envVars.launchDarkly.Key"
