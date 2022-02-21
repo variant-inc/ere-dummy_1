@@ -2,14 +2,14 @@ terraform {
   backend "s3" {}
   required_providers {
     aws = {
-      version = var.aws_version
+      version = "~> 3.49.0"
     }
     helm = {
-      version = var.helm_version
+      version = "~> 1.3.0"
     }
     kubernetes = {
-      version = var.kubernetes_version
-    }    
+      version = "~> 1.13.0"
+    }
   }
 }
 

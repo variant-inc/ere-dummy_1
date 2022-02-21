@@ -27,18 +27,6 @@ variable "aws_policy_version" {
   type = string
 }
 
-variable "aws_version" {
-  type = string
-}
-
-variable "helm_version" {
-  type = string
-}
-
-variable "kubernetes_version" {
-  type = string
-}
-
 // AWS Settings
 variable "aws_default_region" {
   type    = string
