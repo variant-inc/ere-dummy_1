@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Variant.TicketsShared.Messaging.Abstracts;
@@ -6,6 +7,7 @@ using Variant.TicketsShared.Messaging.Interfaces;
 
 namespace TicketType.Microservice.Template.Handlers
 {
+    [ExcludeFromCodeCoverage]
     public class EntitySqsQueueHandler : AbstractSQSHandler
     {
         public EntitySqsQueueHandler(
