@@ -77,7 +77,7 @@ variable "entity_queue_retention_seconds" {
   description = "Number of seconds the queue retains messages"
 }
 
-variable "entity_api_incoming_topic" {
+variable "entity_api_incoming_topic_name" {
   type = string
 }
 
