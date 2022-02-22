@@ -5,6 +5,6 @@ resource "aws_sns_topic" "incoming_entity_topic" {
 }
 
 // This stays
-data "aws_sns_topic" "entity_api_topic" {
-  name = local.sns_incoming_topic_name
-}
+#data "aws_sns_topic" "entity_api_topic" {
+#  name = local.sns_incoming_topic_name
+#}
