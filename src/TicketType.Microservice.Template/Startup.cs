@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TicketType.Microservice.Template.Handlers;
+using Variant.TicketsShared.LaunchDarklyExtensions;
 using Variant.TicketsShared.Messaging.DependencyInjection;
 
 namespace TicketType.Microservice.Template
@@ -27,6 +28,15 @@ namespace TicketType.Microservice.Template
             var config = hostContext.Configuration;
 
             services.AddSQSSharedMessaging<EntitySqsQueueHandler>(config);
+
+            var ldSection = config.GetSection("LaunchDarkly");
+            var ldConfig = new LaunchDarklyConfiguration
+            {
+                Key = ldSection.GetValue<string>("Key"),
+                UserName = ldSection.GetValue<string>("UserName")
+            };
+
+            services.AddFeatureFlags(ldConfig);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
