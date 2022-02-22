@@ -10,6 +10,7 @@
     <ItemGroup>
         <PackageReference Include="App.Metrics" Version="4.3.0" />
         <PackageReference Include="App.Metrics.Reporting.Console" Version="4.3.0" />
+        <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.117" />
         <PackageReference Include="Epsagon.Dotnet.Mvc" Version="1.24.2" />
         <PackageReference Include="LaunchDarkly.Logging.Microsoft" Version="2.0.0" />
         <PackageReference Include="LaunchDarkly.ServerSdk" Version="6.3.2" />
