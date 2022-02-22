@@ -10,10 +10,10 @@ using Variant.TicketsShared.Messaging.DependencyInjection;
 
 namespace TicketType.Microservice.Template
 {
-    public class Startup
+    [ExcludeFromCodeCoverage]
+    public static class Startup
     {
-        [ExcludeFromCodeCoverage]
-        public Startup()
+        static Startup()
         {
             EpsagonBootstrap.Bootstrap();
         }
@@ -22,12 +22,12 @@ namespace TicketType.Microservice.Template
         public static void ConfigureServices(HostBuilderContext hostContext, IServiceCollection services)
         {
             var config = hostContext.Configuration;
-            services.AddSQSSharedMessaging<EntitySqsQueueHandler>(config);
+            services.AddMessagingServices<EntitySqsQueueHandler>(config);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        // public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        // {
             // if (env.IsDevelopment())
             // {
             //     app.UseDeveloperExceptionPage();
@@ -43,6 +43,6 @@ namespace TicketType.Microservice.Template
             // app.UseAuthorization();
             //
             // app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-        }
+        // }
     }
 }
