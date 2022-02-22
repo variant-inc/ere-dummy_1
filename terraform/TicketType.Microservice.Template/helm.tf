@@ -56,12 +56,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "envVars.SQS.QueueUrl"
-    value = var.entity_api_incoming_queue_url
-  }
-
-  set {
-    name  = "envVars.SQS.QueueName"
-    value = var.entity_api_incoming_queue_name
+    value = aws_sqs_queue.incoming_entity_queue.id
   }
 
   set {

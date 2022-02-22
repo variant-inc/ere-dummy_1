@@ -26,7 +26,6 @@ envVars:
     OutgoingTopicArn: "Replace .Values.envVars.SNS.OutgoingTopicArn"
     OutgoingTopicName: "Replace .Values.envVars.SNS.OutgoingTopicName"
   SQS:
-    QueueName: "Replace .Values.envVars.SQS.QueueName"
     QueueUrl: "Replace .Values.envVars.SQS.QueueUrl"
 
 podAnnotations: {}

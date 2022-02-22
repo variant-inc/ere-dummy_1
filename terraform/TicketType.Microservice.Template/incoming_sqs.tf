@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "incoming_entity_api_queue_policy_data" {
 
     condition {
       test     = "ArnEquals"
-      values   = [data.aws_sns_topic.entity_api_topic.arn]
+      values   = [aws_sns_topic.incoming_entity_topic.arn]
       variable = "aws:SourceArn"
     }
   }
@@ -44,7 +44,7 @@ resource "aws_sqs_queue_policy" "incoming_entity_queue_policy" {
 resource "aws_sns_topic_subscription" "ticketing_handler_subscription" {
   endpoint             = aws_sqs_queue.incoming_entity_queue.arn
   protocol             = "sqs"
-  topic_arn            = data.aws_sns_topic.entity_api_topic.arn
+  topic_arn            = aws_sns_topic.incoming_entity_topic.arn
   raw_message_delivery = true
   depends_on           = [aws_sqs_queue_policy.incoming_entity_queue_policy]
 }
