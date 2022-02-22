@@ -40,4 +40,5 @@ locals {
   sns_incoming_topic_name       = "${var.environment}-${var.entity_api_incoming_topic_name}"
   sns_incoming_topic_data_name  = "${var.environment}-${var.entity_api_incoming_topic_name}-data"
   sqs_incoming_queue_name       = "${var.environment}-${var.entity_api_incoming_queue_name}"
+  sqs_entity_deadletter_queue_name = "${var.environment}-entity-data-deadletter-queue"
 }

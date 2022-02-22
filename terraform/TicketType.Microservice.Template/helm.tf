@@ -35,7 +35,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "serviceAccount.roleArn"
-    value = aws_iam_role.ticket_type_microservice_template.arn
+    value = aws_iam_role.application_policy.arn
   }
 
   set {

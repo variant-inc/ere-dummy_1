@@ -1,4 +1,5 @@
-resource "aws_iam_role" "ticket_type_microservice_template" {
+# Application AWS Role
+resource "aws_iam_role" "application_policy" {
   name               = local.env_name
   // var.environment is set by scripts/octo/plan.sh & delpoy.sh
   description        = "IAM role for ${local.normalized_deploy_name} in ${var.environment} environment"
@@ -6,11 +7,11 @@ resource "aws_iam_role" "ticket_type_microservice_template" {
 
   inline_policy {
     name = local.env_name
-    policy = data.aws_iam_policy_document.ticket_type_microservice_template_policy_document.json
+    policy = data.aws_iam_policy_document.application_policy_document.json
   }
 }
 
-data "aws_iam_policy_document" "ticket_type_microservice_template_policy_document" {
+data "aws_iam_policy_document" "application_policy_document" {
   version = var.aws_policy_version
 
   // Allow SNS Access & permissions
@@ -37,7 +38,7 @@ data "aws_iam_policy_document" "ticket_type_microservice_template_policy_documen
   statement {
     effect = "Allow"
     resources = [
-      aws_sqs_queue.incoming_exceptions_queue.arn
+      aws_sqs_queue.incoming_entity_queue.arn
     ]
     actions = [
       "sqs:ChangeMessageVisibility",
