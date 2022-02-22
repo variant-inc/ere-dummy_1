@@ -1,9 +1,9 @@
 // var.deployable is set in scripts/octo/plan.sh & delpoy.sh
 resource "helm_release" "ticket_type_microservice_prototype" {
-  chart     = "../../helm/${var.deployable}"
-  name      = local.normalized_deploy_name
-  namespace = var.target_namespace
-  lint      = true
+  chart           = "../../helm/${var.deployable}"
+  name            = local.normalized_deploy_name
+  namespace       = var.target_namespace
+  lint            = true
   cleanup_on_fail = true
 
   // The following are set in scripts/octo/plan.sh & delpoy.sh:
@@ -66,7 +66,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "envVars.SNS.OutgoingTopicArn"
-    value = var.ticketing_api_outgoing_topic_arn
+    value = aws_sns_topic.outgoing_exceptions_topic.arn
   }
 
   set {
