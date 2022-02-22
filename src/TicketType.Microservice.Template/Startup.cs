@@ -12,12 +12,9 @@ namespace TicketType.Microservice.Template
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
         [ExcludeFromCodeCoverage]
-        public Startup(IConfiguration configuration)
+        public Startup()
         {
-            Configuration = configuration;
             EpsagonBootstrap.Bootstrap();
         }
 
@@ -25,7 +22,6 @@ namespace TicketType.Microservice.Template
         public static void ConfigureServices(HostBuilderContext hostContext, IServiceCollection services)
         {
             var config = hostContext.Configuration;
-
             services.AddSQSSharedMessaging<EntitySqsQueueHandler>(config);
         }
 
