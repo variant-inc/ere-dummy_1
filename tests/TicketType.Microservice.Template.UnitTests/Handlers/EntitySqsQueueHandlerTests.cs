@@ -42,7 +42,13 @@ namespace TicketType.Microservice.Template.UnitTests.Handlers
             var handler = new EntitySqsQueueHandler(_logger.Object, _checklist);
 
             await handler.HandleEventAsync(message, It.IsAny<CancellationToken>());
-            
+
+            _logger.Verify(x => x.Log(
+                LogLevel.Information,
+                It.IsAny<EventId>(),
+                It.IsAny<It.IsAnyType>(),
+                It.IsAny<Exception>(),
+                (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()), Times.Exactly(2));
         }
     }
 }
