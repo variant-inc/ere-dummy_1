@@ -1,13 +1,13 @@
 resource "aws_sqs_queue" "entity_topic_deadletter_queue" {
   name                      = local.sqs_entity_deadletter_queue_name
   kms_master_key_id         = data.aws_kms_alias.sns_key.id
-  message_retention_seconds = var.entity_queue_retention_seconds
+  message_retention_seconds = var.ENTITY_QUEUE_RETENTION_SECONDS
 }
 
 # SQS Entity API queue AWS permissions policy.
 data "aws_iam_policy_document" "incoming_entity_api_queue_policy_data" {
   policy_id = local.sqs_incoming_queue_name
-  version   = var.aws_policy_version
+  version   = var.AWS_POLICY_VERSION
   statement {
     effect    = "Allow"
     resources = [aws_sqs_queue.incoming_entity_queue.arn]

@@ -31,4 +31,3 @@ wait-for-it ${LOCALSTACK_HOST}:${LOCALSTACK_PORT}
 wait-for-it ${LOCALSTACK_HOST}:${LOCALSTACK_SQS_PORT}
 
 wait_for_queue TicketType.Microservice.Template entity-queue
-#wait_for_queue TicketType.Microservice.Template tickets-queue

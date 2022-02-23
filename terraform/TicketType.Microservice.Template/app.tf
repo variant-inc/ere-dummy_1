@@ -12,7 +12,7 @@ resource "aws_iam_role" "application_policy" {
 }
 
 data "aws_iam_policy_document" "application_policy_document" {
-  version = var.aws_policy_version
+  version = var.AWS_POLICY_VERSION
 
   // Allow SNS Access & permissions
   statement {
@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "application_policy_document" {
 
 // var.oidc_provider is set by scripts/octo/plan.sh & delpoy.sh
 data "aws_iam_policy_document" "instance_assume_role_policy" {
-  version = var.aws_policy_version
+  version = var.AWS_POLICY_VERSION
   statement {
     effect = "Allow"
     principals {
@@ -62,7 +62,7 @@ data "aws_iam_policy_document" "instance_assume_role_policy" {
     actions = ["sts:AssumeRoleWithWebIdentity"]
     condition {
       test = "StringEquals"
-      values = ["system:serviceaccount:${var.target_namespace}:${var.k8s_serviceaccount}"]
+      values = ["system:serviceaccount:${var.TARGET_NAMESPACE}:${var.K8S_SERVICEACCOUNT}"]
       variable = "${var.oidc_provider}:sub"
     }
   }

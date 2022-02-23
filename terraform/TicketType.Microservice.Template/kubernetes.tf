@@ -1,6 +1,6 @@
 resource "kubernetes_namespace" "ticket_type_microservice_template_k8_namespace" {
   metadata {
-    name = var.target_namespace
+    name = var.TARGET_NAMESPACE
     labels = {
       "istio-injection": "enabled"
     }

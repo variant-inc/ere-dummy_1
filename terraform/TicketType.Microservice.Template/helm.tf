@@ -2,7 +2,7 @@
 resource "helm_release" "ticket_type_microservice_prototype" {
   chart           = "../../helm/${var.deployable}"
   name            = local.normalized_deploy_name
-  namespace       = var.target_namespace
+  namespace       = var.TARGET_NAMESPACE
   lint            = true
   cleanup_on_fail = true
 
@@ -30,7 +30,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "serviceAccount.name"
-    value = var.k8s_serviceaccount
+    value = var.K8S_SERVICEACCOUNT
   }
 
   set {
@@ -40,7 +40,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "global.namespaceName"
-    value = var.target_namespace
+    value = var.TARGET_NAMESPACE
   }
 
   set {
@@ -51,7 +51,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
   // Environment vars
   set {
     name  = "envVars.awsRegion"
-    value = var.aws_default_region
+    value = var.AWS_DEFAULT_REGION
   }
 
   set {
@@ -61,7 +61,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "envVars.SNS.OutgoingTopicName"
-    value = var.ticketing_api_outgoing_topic_name
+    value = var.TICKETING_API_OUTGOING_TOPIC_NAME
   }
 
   set {
@@ -71,21 +71,21 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "envVars.launchDarkly.Key"
-    value = var.launch_darkly_key
+    value = var.LAUNCH_DARKLY_KEY
   }
 
   set {
     name  = "envVars.launchDarkly.UserName"
-    value = var.launch_darkly_user
+    value = var.LAUNCH_DARKLY_USER
   }
 
   set {
     name  = "envVars.epsagonToken"
-    value = var.epsagon_token
+    value = var.EPSAGON_TOKEN
   }
 
   set {
     name  = "envVars.epsagonAppName"
-    value = var.epsagon_app_name
+    value = var.EPSAGON_APP_NAME
   }
 }

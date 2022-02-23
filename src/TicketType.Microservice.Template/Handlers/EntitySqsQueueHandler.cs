@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Variant.TicketsShared.Messaging.Abstracts;
 using Variant.MessageHandler.MessageHandler;
 using Variant.TicketsShared.Messaging.Interfaces;
+using Variant.TicketsShared.Messaging.PublishMessage;
 
 namespace TicketType.Microservice.Template.Handlers
 {
@@ -15,7 +16,7 @@ namespace TicketType.Microservice.Template.Handlers
             IEntityApiChecklist checklist
         ) : base(logger, checklist)
         {
-            _logger.LogInformation("EntitySqsQueueHandler started.");
+            logger.LogInformation("EntitySqsQueueHandler started.");
         }
 
         // Required by IMessageHandler

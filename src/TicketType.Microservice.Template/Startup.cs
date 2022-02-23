@@ -23,7 +23,7 @@ namespace TicketType.Microservice.Template
             services.AddMessagingServices<EntitySqsQueueHandler>(config);
 			var provider = services.BuildServiceProvider();
             var logger = provider.GetRequiredService<ILogger>();
-            logger.Information("UIHIUHIUH");
+            logger.Information("Services Configured!");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
