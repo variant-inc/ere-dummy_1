@@ -10,6 +10,8 @@
     <ItemGroup>
         <PackageReference Include="App.Metrics" Version="4.3.0" />
         <PackageReference Include="App.Metrics.Reporting.Console" Version="4.3.0" />
+        <PackageReference Include="AutoMapper" Version="10.1.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
         <PackageReference Include="Epsagon.Dotnet.Mvc" Version="1.24.2" />
         <PackageReference Include="LaunchDarkly.Logging.Microsoft" Version="2.0.0" />
         <PackageReference Include="LaunchDarkly.ServerSdk" Version="6.3.2" />
@@ -28,7 +30,7 @@
         <PackageReference Include="Variant.MessageHandler.HealthChecks" Version="5.1.0" />
         <PackageReference Include="Variant.MessageHandler.SQS" Version="5.1.0" />
         <PackageReference Include="Variant.MessageHandler.Tracing" Version="5.1.0" />
-        <PackageReference Include="Variant.TicketsShared.DataSource" Version="1.0.1" />
+        <PackageReference Include="Variant.TicketsShared.DataSource" Version="1.0.3" />
         <PackageReference Include="Variant.TicketsShared.ErrorHandler" Version="1.0.1" />
         <PackageReference Include="Variant.TicketsShared.Messaging" Version="1.0.5" />
     </ItemGroup>

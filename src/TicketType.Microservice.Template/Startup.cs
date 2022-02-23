@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using Epsagon.Dotnet.Instrumentation;
 using Microsoft.AspNetCore.Builder;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TicketType.Microservice.Template.Handlers;
+using TicketType.Microservice.Template.Infrastructure;
+using Variant.TicketsShared.DataSource.Infrastructure;
 using Variant.TicketsShared.Messaging.DependencyInjection;
 
 namespace TicketType.Microservice.Template
@@ -25,6 +28,13 @@ namespace TicketType.Microservice.Template
         public static void ConfigureServices(HostBuilderContext hostContext, IServiceCollection services)
         {
             var config = hostContext.Configuration;
+
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies());
+            });
+
+            services.AddDataSources(config);
 
             services.AddSQSSharedMessaging<EntitySqsQueueHandler>(config);
         }
