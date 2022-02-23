@@ -26,7 +26,6 @@ envVars:
     OutgoingTopicArn: "Replace .Values.envVars.SNS.OutgoingTopicArn"
     OutgoingTopicName: "Replace .Values.envVars.SNS.OutgoingTopicName"
   SQS:
-    QueueName: "Replace .Values.envVars.SQS.QueueName"
     QueueUrl: "Replace .Values.envVars.SQS.QueueUrl"
 
 podAnnotations: {}
@@ -56,7 +55,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
 
 health:
-  enabled: true
+  enabled: false
   targetPort: 1337
   portName: health
   path: /health

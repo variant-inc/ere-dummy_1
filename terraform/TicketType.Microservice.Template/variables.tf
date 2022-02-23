@@ -97,10 +97,6 @@ variable "ticketing_api_outgoing_topic_name" {
   type = string
 }
 
-variable "ticketing_api_outgoing_topic_arn" {
-  type = string
-}
-
 variable "kms_key_alias_sns" {
   type    = string
   default = "alias/ops/sns"

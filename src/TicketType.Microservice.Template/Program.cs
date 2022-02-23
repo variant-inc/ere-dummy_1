@@ -1,18 +1,20 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace TicketType.Microservice.Template
 {
     [ExcludeFromCodeCoverage]
-    public static class Program
+    public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().RunAsync();
+            using var host = CreateHostBuilder(args).UseConsoleLifetime().Build();
+            await host.RunAsync();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices(Startup.ConfigureServices)
                 .UseSerilog((hostContext, logConfiguration) =>

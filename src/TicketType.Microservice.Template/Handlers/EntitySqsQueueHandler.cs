@@ -19,10 +19,14 @@ namespace TicketType.Microservice.Template.Handlers
         // Required by IMessageHandler
         public override async Task Init()
         {
+            _logger.LogInformation("Initializing");
+
             if (_checklist.TractorApiReady)
             {
                 _logger.LogInformation("Tractor is ready!");
             }
+
+            await Task.CompletedTask;
         }
     }
 }

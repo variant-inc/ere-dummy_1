@@ -1,9 +1,9 @@
 // var.deployable is set in scripts/octo/plan.sh & delpoy.sh
 resource "helm_release" "ticket_type_microservice_prototype" {
-  chart     = "../../helm/${var.deployable}"
-  name      = local.normalized_deploy_name
-  namespace = var.target_namespace
-  lint      = true
+  chart           = "../../helm/${var.deployable}"
+  name            = local.normalized_deploy_name
+  namespace       = var.target_namespace
+  lint            = true
   cleanup_on_fail = true
 
   // The following are set in scripts/octo/plan.sh & delpoy.sh:
@@ -35,7 +35,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "serviceAccount.roleArn"
-    value = aws_iam_role.ticket_type_microservice_template.arn
+    value = aws_iam_role.application_policy.arn
   }
 
   set {
@@ -56,12 +56,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "envVars.SQS.QueueUrl"
-    value = var.entity_api_incoming_queue_url
-  }
-
-  set {
-    name  = "envVars.SQS.QueueName"
-    value = var.entity_api_incoming_queue_name
+    value = aws_sqs_queue.incoming_entity_queue.id
   }
 
   set {
@@ -71,7 +66,7 @@ resource "helm_release" "ticket_type_microservice_prototype" {
 
   set {
     name  = "envVars.SNS.OutgoingTopicArn"
-    value = var.ticketing_api_outgoing_topic_arn
+    value = aws_sns_topic.outgoing_exceptions_topic.arn
   }
 
   set {
