@@ -43,6 +43,7 @@ jobs:
           nuget_push_token: ${{ secrets.GITHUB_TOKEN }}
           nuget_pull_token: ${{ secrets.PKG_READ }}
           container_push_enabled: 'true'
+          # This should match the ECR_REPO_URL path part set in Octopus
           ecr_repository: exception-recognition-engine/protoypev1
           sonar_scan_in_docker: 'false'
 

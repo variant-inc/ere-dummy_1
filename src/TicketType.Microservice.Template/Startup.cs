@@ -1,8 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using Epsagon.Dotnet.Instrumentation;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TicketType.Microservice.Template.Handlers;
@@ -11,14 +8,11 @@ using Variant.TicketsShared.Messaging.DependencyInjection;
 
 namespace TicketType.Microservice.Template
 {
-    public class Startup
+    [ExcludeFromCodeCoverage]
+    public static class Startup
     {
-        public IConfiguration Configuration { get; }
-
-        [ExcludeFromCodeCoverage]
-        public Startup(IConfiguration configuration)
+        static Startup()
         {
-            Configuration = configuration;
             EpsagonBootstrap.Bootstrap();
         }
 
@@ -26,6 +20,7 @@ namespace TicketType.Microservice.Template
         public static void ConfigureServices(HostBuilderContext hostContext, IServiceCollection services)
         {
             var config = hostContext.Configuration;
+            services.AddMessagingServices<EntitySqsQueueHandler>(config);
 
             services.AddSQSSharedMessaging<EntitySqsQueueHandler>(config);
 
@@ -40,8 +35,8 @@ namespace TicketType.Microservice.Template
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        // public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        // {
             // if (env.IsDevelopment())
             // {
             //     app.UseDeveloperExceptionPage();
@@ -57,6 +52,6 @@ namespace TicketType.Microservice.Template
             // app.UseAuthorization();
             //
             // app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-        }
+        // }
     }
 }
