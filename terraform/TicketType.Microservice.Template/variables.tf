@@ -22,15 +22,15 @@ variable "oidc_provider" {
 }
 ///
 
-variable "K8S_SERVICEACCOUNT" {
+variable "k8s_serviceaccount" {
   type = string
 }
 
-variable "TARGET_NAMESPACE" {
+variable "target_namespace" {
   type = string
 }
 
-variable "PROJECT_NAME" {
+variable "project_name" {
   type = string
 }
 
@@ -43,31 +43,31 @@ variable "owner" {
 }
 
 // AWS Settings
-variable "AWS_POLICY_VERSION" {
+variable "aws_policy_version" {
   type = string
 }
 
-variable "AWS_DEFAULT_REGION" {
+variable "aws_default_region" {
   type    = string
   default = "us-east-1"
 }
 
 // Epsagon Settings
-variable "EPSAGON_APP_NAME" {
+variable "epsagon_app_name" {
   type = string
 }
 
-variable "EPSAGON_TOKEN" {
+variable "epsagon_token" {
   type        = string
   description = "Set via 'Set AWS credentials' Octopus Script Module"
 }
 
 // LaunchDarkly Settings
-variable "LAUNCH_DARKLY_KEY" {
+variable "launch_darkly_key" {
   type = string
 }
 
-variable "LAUNCH_DARKLY_USER" {
+variable "launch_darkly_user" {
   type = string
 }
 
@@ -78,21 +78,21 @@ variable "octopus_tags" {
 }
 
 // SNS/SQS
-variable "ENTITY_QUEUE_RETENTION_SECONDS" {
+variable "entity_queue_retention_seconds" {
   type = number
   default     = 604800 # 7 days
   description = "Number of seconds the queue retains messages"
 }
 
-variable "ENTITY_API_INCOMING_QUEUE_NAME" {
+variable "entity_api_incoming_queue_name" {
   type = string
 }
 
-variable "ENTITY_API_INCOMING_QUEUE_URL" {
+variable "entity_api_incoming_queue_url" {
   type = string
 }
 
-variable "TICKETING_API_OUTGOING_TOPIC_NAME" {
+variable "ticketing_api_outgoing_topic_name" {
   type = string
 }
 
