@@ -13,8 +13,10 @@ namespace TicketType.Microservice.Template.Handlers
         public EntitySqsQueueHandler(
             ILogger<IMessageHandler> logger,
             IEntityApiChecklist checklist
-        ) : base (logger, checklist)
-        {}
+        ) : base(logger, checklist)
+        {
+            _logger.LogInformation("EntitySqsQueueHandler started.");
+        }
 
         // Required by IMessageHandler
         public override async Task Init()

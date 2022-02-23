@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using Epsagon.Dotnet.Instrumentation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using TicketType.Microservice.Template.Handlers;
 using Variant.TicketsShared.Messaging.DependencyInjection;
 
@@ -20,6 +21,9 @@ namespace TicketType.Microservice.Template
         {
             var config = hostContext.Configuration;
             services.AddMessagingServices<EntitySqsQueueHandler>(config);
+			var provider = services.BuildServiceProvider();
+            var logger = provider.GetRequiredService<ILogger>();
+            logger.Information("UIHIUHIUH");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
