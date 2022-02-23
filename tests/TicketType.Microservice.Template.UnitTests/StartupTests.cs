@@ -19,23 +19,23 @@ namespace TicketType.Microservice.Template.UnitTests
             ["HealthChecks:Enabled"] = "true",
         };
 
-        [Fact]
-        public void CanResolveExpectedDependencies()
-        {
-            var dependency = typeof(EntitySqsQueueHandler);
-            var hostBuilderContext = new HostBuilderContext(new Dictionary<object, object>())
-            {
-                Configuration = new ConfigurationBuilder()
-                    .AddInMemoryCollection(ConfigurationSettings)
-                    .Build()
-            };
-
-            var services = new ServiceCollection();
-            Startup.ConfigureServices(hostBuilderContext, services);
-            var provider = services.BuildServiceProvider();
-            var instance = ActivatorUtilities.CreateInstance(provider, dependency);
-
-            Assert.IsType<EntitySqsQueueHandler>(instance);
-        }
+        // [Fact]
+        // public void CanResolveExpectedDependencies()
+        // {
+        //     var dependency = typeof(EntitySqsQueueHandler);
+        //     var hostBuilderContext = new HostBuilderContext(new Dictionary<object, object>())
+        //     {
+        //         Configuration = new ConfigurationBuilder()
+        //             .AddInMemoryCollection(ConfigurationSettings)
+        //             .Build()
+        //     };
+        //
+        //     var services = new ServiceCollection();
+        //     Startup.ConfigureServices(hostBuilderContext, services);
+        //     var provider = services.BuildServiceProvider();
+        //     var instance = ActivatorUtilities.CreateInstance(provider, dependency);
+        //
+        //     Assert.IsType<EntitySqsQueueHandler>(instance);
+        // }
     }
 }
