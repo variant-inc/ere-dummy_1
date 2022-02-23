@@ -1,8 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using Epsagon.Dotnet.Instrumentation;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TicketType.Microservice.Template.Handlers;
@@ -10,6 +7,7 @@ using Variant.TicketsShared.Messaging.DependencyInjection;
 
 namespace TicketType.Microservice.Template
 {
+    [ExcludeFromCodeCoverage]
     public static class Startup
     {
         static Startup()
