@@ -10,7 +10,6 @@ using Variant.TicketsShared.Messaging.DependencyInjection;
 
 namespace TicketType.Microservice.Template
 {
-    [ExcludeFromCodeCoverage]
     public static class Startup
     {
         static Startup()
