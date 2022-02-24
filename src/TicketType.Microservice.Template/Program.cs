@@ -16,9 +16,9 @@ namespace TicketType.Microservice.Template
 
         private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureServices(Startup.ConfigureServices)
                 .UseSerilog((hostContext, logConfiguration) =>
                     logConfiguration.ReadFrom.Configuration(hostContext.Configuration)
-                );
+                )
+				.ConfigureServices(Startup.ConfigureServices);
     }
 }

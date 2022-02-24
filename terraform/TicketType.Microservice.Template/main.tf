@@ -32,13 +32,16 @@ data "aws_kms_alias" "sns_key" {
 
 # var.environment is set in scripts/octo/plan.sh & delpoy.sh:
 locals {
-  aws_account_id                = data.aws_caller_identity.current.account_id
-  normalized_deploy_name        = replace(lower(var.deployable), ".", "-")
-  env_deployable                = "${var.environment}-${var.project_name}-${local.normalized_deploy_name}"
-  env_name                      = "${var.environment}-${local.normalized_deploy_name}"
-  sns_ticketing_topic_name      = "${var.environment}-${var.ticketing_api_outgoing_topic_name}"
-  sns_incoming_topic_name       = "${var.environment}-${var.entity_api_incoming_topic_name}"
-  sns_incoming_topic_data_name  = "${var.environment}-${var.entity_api_incoming_topic_name}-data"
-  sqs_incoming_queue_name       = "${var.environment}-${var.entity_api_incoming_queue_name}"
+  # Temp vars
+  entity_api_incoming_topic_name   = "temp-incoming-entity-topic"
+  ###
+  aws_account_id                   = data.aws_caller_identity.current.account_id
+  normalized_deploy_name           = replace(lower(var.deployable), ".", "-")
+  env_deployable                   = "${var.environment}-${var.project_name}-${local.normalized_deploy_name}"
+  env_name                         = "${var.environment}-${local.normalized_deploy_name}"
+  sns_outgoing_topic_name          = "${var.environment}-${var.ticketing_api_outgoing_topic_name}"
+  sns_incoming_topic_name          = "${var.environment}-${local.entity_api_incoming_topic_name}"
+  sns_incoming_topic_data_name     = "${var.environment}-${local.entity_api_incoming_topic_name}-data"
+  sqs_incoming_queue_name          = "${var.environment}-${var.entity_api_incoming_queue_name}"
   sqs_entity_deadletter_queue_name = "${var.environment}-entity-data-deadletter-queue"
 }

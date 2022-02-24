@@ -1,9 +1,36 @@
 // Variant Settings
+// The following values come from deploy.sh & plan.sh
+// in scripts/octo/
 variable "deployable" {
   type=string
 }
 
 variable "environment" {
+  type = string
+}
+
+variable "revision" {
+  type = string
+}
+
+variable "image_tag" {
+  type = string
+}
+
+variable "oidc_provider" {
+  type = string
+}
+///
+
+variable "k8s_serviceaccount" {
+  type = string
+}
+
+variable "target_namespace" {
+  type = string
+}
+
+variable "project_name" {
   type = string
 }
 
@@ -15,38 +42,14 @@ variable "owner" {
   type = string
 }
 
-variable "revision" {
-  type = string
-}
-
+// AWS Settings
 variable "aws_policy_version" {
   type = string
 }
 
-variable "project_name" {
-  type = string
-}
-
-// AWS Settings
 variable "aws_default_region" {
   type    = string
   default = "us-east-1"
-}
-
-variable "image_tag" {
-  type = string
-}
-
-variable "target_namespace" {
-  type = string
-}
-
-variable "oidc_provider" {
-  type = string
-}
-
-variable "k8s_serviceaccount" {
-  type = string
 }
 
 // Epsagon Settings
@@ -79,10 +82,6 @@ variable "entity_queue_retention_seconds" {
   type = number
   default     = 604800 # 7 days
   description = "Number of seconds the queue retains messages"
-}
-
-variable "entity_api_incoming_topic_name" {
-  type = string
 }
 
 variable "entity_api_incoming_queue_name" {

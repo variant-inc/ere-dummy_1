@@ -3,6 +3,7 @@ using Epsagon.Dotnet.Instrumentation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using TicketType.Microservice.Template.Handlers;
 using TicketType.Microservice.Template.Infrastructure.FeatureFlags;
 using Variant.TicketsShared.LaunchDarklyExtensions;
@@ -23,8 +24,11 @@ namespace TicketType.Microservice.Template
         {
             var config = hostContext.Configuration;
             services.AddMessagingServices<EntitySqsQueueHandler>(config);
-
             services.ConfigureLaunchDarkly(config);
+
+			var provider = services.BuildServiceProvider();
+            var logger = provider.GetRequiredService<ILogger>();
+            logger.Information("Services Configured!");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
