@@ -88,4 +88,34 @@ resource "helm_release" "ticket_type_microservice_prototype" {
     name  = "envVars.epsagonAppName"
     value = var.epsagon_app_name
   }
+
+  set {
+    name  = "envVars.entityApiUserAgent"
+    value = var.enity_api_user_agent
+  }
+  
+  set {
+    name  = "envVars.entityApiBaseAddress"
+    value = var.entity_api_base_address
+  }
+  
+  set {
+    name  = "envVars.entityApiDriverPath"
+    value = var.entity_api_driver_path
+  }
+  
+  set {
+    name  = "envVars.entityApiHometimePath"
+    value = var.entity_api_hometime_path
+  }
+  
+  set {
+    name  = "envVars.entityApiOrderPath"
+    value = var.entity_api_order_path
+  }
+  
+  set {
+    name  = "envVars.entityApiTractorPath"
+    value = var.entity_api_tractor_path
+  }
 }

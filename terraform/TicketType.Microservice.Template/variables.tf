@@ -100,3 +100,28 @@ variable "kms_key_alias_sns" {
   type    = string
   default = "alias/ops/sns"
 }
+
+// Data Sources
+variable "enity_api_user_agent" {
+  type = "string"
+}
+
+variable "entity_api_base_address" {
+  type = "string"
+}
+
+variable "entity_api_driver_path" {
+  type = "string"
+}
+
+variable "entity_api_hometime_path" {
+  type = "string"
+}
+
+variable "entity_api_order_path" {
+  type = "string"
+}
+
+variable "entity_api_tractor_path" {
+  type = "string"
+}
