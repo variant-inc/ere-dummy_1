@@ -55,7 +55,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
 
 health:
-  enabled: false
+  enabled: true
   targetPort: 1337
   portName: health
   path: /health
