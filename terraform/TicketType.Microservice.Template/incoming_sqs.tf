@@ -1,7 +1,6 @@
 resource "aws_sqs_queue" "entity_topic_deadletter_queue" {
-  name                      = local.sqs_entity_deadletter_queue_name
-  kms_master_key_id         = data.aws_kms_alias.sns_key.id
-  message_retention_seconds = var.entity_queue_retention_seconds
+  name                        = local.sqs_entity_deadletter_queue_name
+  kms_master_key_id           = data.aws_kms_alias.sns_key.id
 }
 
 # SQS Entity API queue AWS permissions policy.
@@ -27,12 +26,14 @@ data "aws_iam_policy_document" "incoming_entity_api_queue_policy_data" {
 }
 
 resource "aws_sqs_queue" "incoming_entity_queue" {
-  name                      = local.sqs_incoming_queue_name
-  kms_master_key_id         = data.aws_kms_alias.sns_key.id
+  name                        = local.sqs_incoming_queue_name
+  kms_master_key_id           = data.aws_kms_alias.sns_key.id
+  visibility_timeout_seconds  = 20
+  message_retention_seconds   = var.entity_queue_retention_seconds
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.entity_topic_deadletter_queue.arn
-    maxReceiveCount     = 1
+    maxReceiveCount     = 5
   })
 }
 
