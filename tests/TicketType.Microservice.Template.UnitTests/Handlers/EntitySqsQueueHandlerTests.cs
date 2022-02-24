@@ -48,7 +48,7 @@ namespace TicketType.Microservice.Template.UnitTests.Handlers
                 It.IsAny<EventId>(),
                 It.IsAny<It.IsAnyType>(),
                 It.IsAny<Exception>(),
-                (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()), Times.Exactly(3));
+                (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()), Times.Exactly(4));
         }
     }
 }
