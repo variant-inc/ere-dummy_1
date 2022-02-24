@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Variant.TicketsShared.DataSource.Infrastructure;
 
 namespace TicketType.Microservice.Template.Infrastructure
 {
+    [ExcludeFromCodeCoverage]
     internal static class DataSourcesRegistration
     {
-
         public static void AddDataSources(this IServiceCollection services, IConfiguration configuration)
         {
             //Uncomment line to configure required data source;
