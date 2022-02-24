@@ -1,9 +1,12 @@
 using System.Diagnostics.CodeAnalysis;
 using Epsagon.Dotnet.Instrumentation;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using TicketType.Microservice.Template.Handlers;
+using TicketType.Microservice.Template.Infrastructure.FeatureFlags;
+using Variant.TicketsShared.LaunchDarklyExtensions;
 using Variant.TicketsShared.Messaging.DependencyInjection;
 
 namespace TicketType.Microservice.Template
@@ -21,6 +24,8 @@ namespace TicketType.Microservice.Template
         {
             var config = hostContext.Configuration;
             services.AddMessagingServices<EntitySqsQueueHandler>(config);
+            services.ConfigureLaunchDarkly(config);
+
 			var provider = services.BuildServiceProvider();
             var logger = provider.GetRequiredService<ILogger>();
             logger.Information("Services Configured!");
