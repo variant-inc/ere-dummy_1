@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,8 @@ using Variant.MessageHandler.MessageHandler;
 using Variant.TicketsShared.Messaging;
 using Variant.TicketsShared.Messaging.Constants;
 using Variant.TicketsShared.Messaging.Interfaces;
+using Variant.TicketsShared.Messaging.Models;
+using Variant.TicketsShared.Messaging.PublishMessage;
 using Xunit;
 
 namespace TicketType.Microservice.Template.UnitTests.Handlers
@@ -39,10 +42,20 @@ namespace TicketType.Microservice.Template.UnitTests.Handlers
             {
                 Body = JsonStub.GetGoodJson(EntityEventTypes.JOB_STARTED, EntityTypes.Tractor)
             };
-            var handler = new EntitySqsQueueHandler(_logger.Object, _checklist);
+            var exception = new ExceptionBase
+            {
+                Body = "uilh iuh liuhiu"
+            };
+            var mockPublisher = new Mock<IPublishMessageToSNSTopic>();
+            mockPublisher.Setup(p => p.PublishMessageToSNSTopicAsync(It.IsAny<string>(), exception, null))
+                .Verifiable();
+            var handler = new EntitySqsQueueHandler(_logger.Object, _checklist, mockPublisher.Object);
 
             await handler.HandleEventAsync(message, It.IsAny<CancellationToken>());
 
+        //     mockPublisher.Verify(
+        // p => p.PublishMessageToSNSTopicAsync(It.IsAny<string>(), exception, null),
+        //         Times.Once);
             _logger.Verify(x => x.Log(
                 LogLevel.Information,
                 It.IsAny<EventId>(),
