@@ -23,14 +23,10 @@ namespace TicketType.Microservice.Template
         {
             var config = hostContext.Configuration;
 
-            services.AddAutoMapper(cfg =>
-            {
-                cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies());
-            });
+            services.AddAutoMapper(cfg => cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies()));
 
             services.AddDataSources(config);
 
-            services.AddSQSSharedMessaging<EntitySqsQueueHandler>(config);
             services.AddMessagingServices<EntitySqsQueueHandler>(config);
         }
 

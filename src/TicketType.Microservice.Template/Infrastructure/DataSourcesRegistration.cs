@@ -1,10 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Variant.TicketsShared.DataSource.Infrastructure;
 
 namespace TicketType.Microservice.Template.Infrastructure
@@ -14,7 +10,36 @@ namespace TicketType.Microservice.Template.Infrastructure
 
         public static void AddDataSources(this IServiceCollection services, IConfiguration configuration)
         {
-            AddTractorSource(services, configuration);
+            //Uncomment line to configure required data source;
+
+            //AddTractorSource(services, configuration);
+            //AddDriverSource(services, configuration);
+            //AddHomeTimeSource(services, configuration);
+            //AddOrderSource(services, configuration);
+        }
+
+        private static void AddTractorSource(IServiceCollection services, IConfiguration configuration) => services.AddEntityDataSource(configuration, "TractorApi", services.AddTractorDataService);
+
+        private static void AddDriverSource(IServiceCollection services, IConfiguration configuration) => services.AddEntityDataSource(configuration, "DriverApi", services.AddDriversDataService);
+
+        private static void AddHomeTimeSource(IServiceCollection services, IConfiguration configuration) => services.AddEntityDataSource(configuration, "HometimeApi", services.AddHomeTimeDataService);
+
+        private static void AddOrderSource(IServiceCollection services, IConfiguration configuration) => services.AddEntityDataSource(configuration, "OrderApi", services.AddOrdersDataService);
+
+
+        private static void AddEntityDataSource(this IServiceCollection services, IConfiguration configuration, string configSection, Func<HttpEntityDataSourceConfiguration, IServiceCollection> bootstrapingMethod)
+        {
+            var (baseAddress, userAgent) = GetEntityApiConfig(configuration);
+            var resourcePath = configuration.GetSection(configSection).GetValue<string>("ResourcePath");
+
+            var sourceConfig = new HttpEntityDataSourceConfiguration
+            {
+                Domain = baseAddress,
+                ResourcePath = resourcePath,
+                UserAgent = userAgent
+            };
+
+            bootstrapingMethod(sourceConfig);
         }
 
         private static (string baseAddress, string userAgent) GetEntityApiConfig(IConfiguration configuration)
@@ -24,21 +49,6 @@ namespace TicketType.Microservice.Template.Infrastructure
                 apiSection.GetValue<string>("BaseAddress"),
                 apiSection.GetValue<string>("UserAgent")
                 );
-        }
-
-        private static void AddTractorSource(IServiceCollection services, IConfiguration configuration)
-        {
-            var (baseAddress, userAgent) = GetEntityApiConfig(configuration);
-            var resourcePath = configuration.GetSection("TractorApi").GetValue<string>("ResourcePath");
-
-            var tractorDataConfig = new HttpEntityDataSourceConfiguration
-            {
-                Domain = baseAddress,
-                ResourcePath = resourcePath,
-                UserAgent = userAgent
-            };
-
-            services.AddTractorDataService(tractorDataConfig);
         }
     }
 }
