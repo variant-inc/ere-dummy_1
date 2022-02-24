@@ -103,25 +103,25 @@ variable "kms_key_alias_sns" {
 
 // Data Sources
 variable "enity_api_user_agent" {
-  type = "string"
+  type = string
 }
 
 variable "entity_api_base_address" {
-  type = "string"
+  type = string
 }
 
 variable "entity_api_driver_path" {
-  type = "string"
+  type = string
 }
 
 variable "entity_api_hometime_path" {
-  type = "string"
+  type = string
 }
 
 variable "entity_api_order_path" {
-  type = "string"
+  type = string
 }
 
 variable "entity_api_tractor_path" {
-  type = "string"
+  type = string
 }
