@@ -67,9 +67,9 @@ spec:
               value: {{ required "The AWS region is required" .awsRegion | quote }}
             - name: SQS__QueueUrl
               value: {{ required "The incoming SQS queue URL is Required" .SQS.QueueUrl | quote }}
-            - name: SNS__OutgoingTopicName
-              value: {{ required "The outgoing Ticketing SNS Topic name is Required" .SNS.OutgoingTopicName | quote }}
-            - name: SNS__OutgoingTopicArn
+            - name: OutgoingSNSTopicName
+              value: {{ required "The outgoing SNS topic name is Required" .SNS.OutgoingTopicName | quote }}
+            - name: MessagePublisher__SnsTopics__Outgoing
               value: {{ required "The outgoing Ticketing SNS Topic Arn is Required" .SNS.OutgoingTopicArn | quote }}
             - name: LaunchDarkly__Key
               value: {{ required "The LaunchDarkly Key is Required" .launchDarkly.Key | quote }}
@@ -80,20 +80,6 @@ spec:
             - name: EPSAGON_APP_NAME
               value: {{ required ".epsagonAppName is required" .epsagonAppName | quote }}
             {{- end}}
-            {{- with .Values.serviceMonitor }}
-            - name: PROMETHEUS__SERVER__ENABLED
-              value: {{ .enabled | quote }}
-            {{- if .enabled }}
-            - name: PROMETHEUS__SERVER__HOSTNAME
-              value: {{ .matchedHost | quote }}
-            - name: PROMETHEUS__SERVER__PORT
-              value: {{ .targetPort | quote }}
-            - name: PROMETHEUS__SERVER__URL
-              value: {{ .path }}
-            - name: PROMETHEUS__USEHTTPS
-              value: {{ .useHttps | quote }}
-            {{- end }}
-            {{- end }}
             {{- with .Values.health }}
             - name: HEALTHCHECKS__ENABLED
               value: {{ .enabled | quote }}

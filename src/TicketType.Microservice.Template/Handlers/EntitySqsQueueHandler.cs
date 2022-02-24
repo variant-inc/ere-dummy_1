@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Variant.TicketsShared.Messaging.Abstracts;
 using Variant.MessageHandler.MessageHandler;
 using Variant.TicketsShared.Messaging.Interfaces;
+using Variant.TicketsShared.Messaging.PublishMessage;
 
 namespace TicketType.Microservice.Template.Handlers
 {
@@ -13,8 +14,10 @@ namespace TicketType.Microservice.Template.Handlers
         public EntitySqsQueueHandler(
             ILogger<IMessageHandler> logger,
             IEntityApiChecklist checklist
-        ) : base (logger, checklist)
-        {}
+        ) : base(logger, checklist)
+        {
+            logger.LogInformation("EntitySqsQueueHandler started.");
+        }
 
         // Required by IMessageHandler
         public override async Task Init()
