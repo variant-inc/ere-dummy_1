@@ -24,7 +24,7 @@ namespace TicketType.Microservice.Template
         {
             var config = hostContext.Configuration;
             services.AddMessagingServices<EntitySqsQueueHandler>(config);
-            services.ConfigureLaunchDarkly(config);
+            // services.ConfigureLaunchDarkly(config);
 
 			var provider = services.BuildServiceProvider();
             var logger = provider.GetRequiredService<ILogger>();
