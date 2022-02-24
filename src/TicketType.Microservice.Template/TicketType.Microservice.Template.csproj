@@ -33,4 +33,10 @@
         <PackageReference Include="Variant.TicketsShared.Messaging" Version="1.0.11" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="appsettings.*.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
 </Project>
