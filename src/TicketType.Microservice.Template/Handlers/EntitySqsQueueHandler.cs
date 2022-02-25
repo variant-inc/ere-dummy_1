@@ -13,15 +13,13 @@ namespace TicketType.Microservice.Template.Handlers
     [ExcludeFromCodeCoverage]
     public class EntitySqsQueueHandler : AbstractSQSHandler
     {
-        protected readonly IPublishMessageToSNSTopic _publisher;
-
         public EntitySqsQueueHandler(
             ILogger<IMessageHandler> logger,
             IEntityApiChecklist checklist,
-            IPublishMessageToSNSTopic publisher
-        ) : base(logger, checklist)
+            IPublishMessageToSNSTopic publisher,
+            IOutgoingSnsTopicMetaData outgoingSnsTopicMetaData
+        ) : base(logger, checklist, publisher, outgoingSnsTopicMetaData)
         {
-            _publisher = publisher;
             logger.LogInformation("EntitySqsQueueHandler started.");
         }
 
@@ -34,8 +32,8 @@ namespace TicketType.Microservice.Template.Handlers
             {
                 Body = "UIH liuhliuh luh iluhiu"
             };
-            var topicName = Environment.GetEnvironmentVariable("OutgoingSNSTopicName");
-            await _publisher.PublishMessageToSNSTopicAsync(topicName, exception);
+
+            await _publisher.PublishMessageToSNSTopicAsync(_outgoingSnsTopicMetaData.TopicName, exception);
         }
     }
 }

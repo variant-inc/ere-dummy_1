@@ -8,7 +8,7 @@ namespace TicketType.Microservice.Template.Infrastructure.FeatureFlags
     [ExcludeFromCodeCoverage]
     internal static class LaunchDarkly
     {
-        public static void ConfigureLaunchDarkly(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection ConfigureLaunchDarkly(this IServiceCollection services, IConfiguration config)
         {
             var ldSection = config.GetSection("LaunchDarkly");
             var ldConfig = new LaunchDarklyConfiguration
@@ -18,6 +18,8 @@ namespace TicketType.Microservice.Template.Infrastructure.FeatureFlags
             };
 
             services.AddFeatureFlags(ldConfig);
+
+            return services;
         }
     }
 }

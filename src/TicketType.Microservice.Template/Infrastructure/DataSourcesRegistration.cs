@@ -9,7 +9,7 @@ namespace TicketType.Microservice.Template.Infrastructure
     [ExcludeFromCodeCoverage]
     internal static class DataSourcesRegistration
     {
-        public static void AddDataSources(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDataSources(this IServiceCollection services, IConfiguration configuration)
         {
             //Uncomment line to configure required data source;
 
@@ -17,6 +17,7 @@ namespace TicketType.Microservice.Template.Infrastructure
             //AddDriverSource(services, configuration);
             //AddHomeTimeSource(services, configuration);
             //AddOrderSource(services, configuration);
+            return services;
         }
 
         private static void AddTractorSource(IServiceCollection services, IConfiguration configuration) => services.AddEntityDataSource(configuration, "TractorApi", services.AddTractorDataService);

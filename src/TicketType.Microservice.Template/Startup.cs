@@ -27,14 +27,12 @@ namespace TicketType.Microservice.Template
         {
             var config = hostContext.Configuration;
 
-            services.AddAutoMapper(cfg => cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies()));
-
-            services.AddDataSources(config);
-
-            services.AddMessagingServices<EntitySqsQueueHandler>(config);
-            services.ConfigureLaunchDarkly(config);
-
-            services.AddScoped<GeneratorErrorHandler>();
+            services.AddOutgoingSnsTopicMetaData(config)
+                .AddAutoMapper(cfg => cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies()))
+                .AddDataSources(config)
+                .AddMessagingServices<EntitySqsQueueHandler>(config)
+                .ConfigureLaunchDarkly(config)
+                .AddScoped<GeneratorErrorHandler>();
 
             var provider = services.BuildServiceProvider();
             var logger = provider.GetRequiredService<ILogger>();

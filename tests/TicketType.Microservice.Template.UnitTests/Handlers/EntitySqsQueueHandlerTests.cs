@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -20,11 +19,18 @@ namespace TicketType.Microservice.Template.UnitTests.Handlers
     public class EntitySqsQueueHandlerTests
     {
         private readonly Mock<ILogger<IMessageHandler>> _logger;
+        private readonly Mock<IOutgoingSnsTopicMetaData> _mockOutgoingTopic;
+        private readonly Mock<IPublishMessageToSNSTopic> _mockPublisher;
         private readonly IEntityApiChecklist _checklist;
 
         public EntitySqsQueueHandlerTests()
         {
             _logger = new Mock<ILogger<IMessageHandler>>();
+            _mockOutgoingTopic = new Mock<IOutgoingSnsTopicMetaData>
+            {
+                Name = It.IsAny<string>()
+            };
+            _mockPublisher = new Mock<IPublishMessageToSNSTopic>();
             _checklist = new EntityApiChecklist();
         }
 
@@ -46,10 +52,9 @@ namespace TicketType.Microservice.Template.UnitTests.Handlers
             {
                 Body = "uilh iuh liuhiu"
             };
-            var mockPublisher = new Mock<IPublishMessageToSNSTopic>();
-            mockPublisher.Setup(p => p.PublishMessageToSNSTopicAsync(It.IsAny<string>(), exception, null))
+            _mockPublisher.Setup(p => p.PublishMessageToSNSTopicAsync(It.IsAny<string>(), exception, null))
                 .Verifiable();
-            var handler = new EntitySqsQueueHandler(_logger.Object, _checklist, mockPublisher.Object);
+            var handler = new EntitySqsQueueHandler(_logger.Object, _checklist, _mockPublisher.Object, _mockOutgoingTopic.Object);
 
             await handler.HandleEventAsync(message, It.IsAny<CancellationToken>());
 
