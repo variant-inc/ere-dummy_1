@@ -19,7 +19,7 @@ services:
       - AWS_SECRET_ACCESS_KEY=12345
       - AWS__ServiceURL=http://localstack:4576
       - SQS__Region=us-east-1
-      - SQS__QueueUrl=http://localstack:4566/000000000000/entity-queue
+      - SQS__QueueUrl=http://localstack:4576/000000000000/entity-queue
       - SNS__OutgoingTopicName=tickets-topic
       - SNS__OutgoingTopicArn=arn:aws:sns:us-east-1:000000000000:tickets-topic
       - DOTNET_ENIVRONMENT=Development

@@ -2,36 +2,31 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
+        <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+        <RootNamespace>TicketType.Microservice.Template</RootNamespace>
         <TargetFramework>net5.0</TargetFramework>
         <RunWorkingDirectory>$(MSBuildThisFileDirectory)</RunWorkingDirectory>
         <RepositoryUrl>https://github.com/variant-inc/ticket-type-microservice-template</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="App.Metrics" Version="4.3.0" />
-        <PackageReference Include="App.Metrics.Reporting.Console" Version="4.3.0" />
-        <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.117" />
+        <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.68" />
         <PackageReference Include="AutoMapper" Version="10.1.1" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-        <PackageReference Include="Epsagon.Dotnet.Mvc" Version="1.24.2" />
-        <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="Serilog" Version="2.10.0" />
-        <PackageReference Include="Serilog.Exceptions" Version="7.0.0" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="4.1.2" />
-        <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="3.2.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-        <PackageReference Include="TimeZoneConverter" Version="5.0.0" />
-        <PackageReference Include="Variant.HealthChecks.Console" Version="5.0.0" />
-        <PackageReference Include="Variant.MessageHandler.Epsagon" Version="5.0.1" />
-        <PackageReference Include="Variant.MessageHandler.HealthChecks" Version="5.1.0" />
-        <PackageReference Include="Variant.MessageHandler.SQS" Version="5.1.0" />
-        <PackageReference Include="Variant.MessageHandler.Tracing" Version="5.1.0" />
         <PackageReference Include="Variant.TicketsShared.DataSource" Version="1.0.3" />
         <PackageReference Include="Variant.TicketsShared.ErrorHandler" Version="1.0.1" />
-        <PackageReference Include="Variant.TicketsShared.Messaging" Version="1.0.9" />
+        <PackageReference Include="Variant.TicketsShared.Messaging" Version="1.0.14" />
         <PackageReference Include="Variant.TicketsShared.LaunchDarklyExtensions" Version="1.0.2" />		
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="appsettings.*.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>
