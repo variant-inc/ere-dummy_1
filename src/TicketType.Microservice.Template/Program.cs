@@ -10,7 +10,9 @@ namespace TicketType.Microservice.Template
     {
         public static async Task Main(string[] args)
         {
-            using var host = CreateHostBuilder(args).UseConsoleLifetime().Build();
+            using var host = CreateHostBuilder(args)
+                .UseConsoleLifetime()
+                .Build();
             await host.RunAsync();
         }
 
