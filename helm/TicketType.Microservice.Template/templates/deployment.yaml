@@ -79,6 +79,18 @@ spec:
               value: {{ required ".epsagonToken is required" .epsagonToken | quote }}
             - name: EPSAGON_APP_NAME
               value: {{ required ".epsagonAppName is required" .epsagonAppName | quote }}
+            - name: EntityApi__BaseAddress
+              value: {{ required ".entityApiBaseAddress is required " .entityApiBaseAddress | quote}}
+            - name: EntityApi__UserAgent
+              value: {{ required ".entityApiUserAgent is required " .entityApiUserAgent | quote}}
+            - name: TractorApi__ResourcePath
+              value: {{ required ".entityApiTractorPath is required " .entityApiTractorPath | quote}}
+            - name: DriverApi__ResourcePath
+              value: {{ required ".entityApiDriverPath is required " .entityApiDriverPath | quote}}
+            - name: HometimeApi__ResourcePath
+              value: {{ required ".entityApiHometimePath is required " .entityApiHometimePath | quote}}
+            - name: OrderApi__ResourcePath
+              value: {{ required ".entityApiOrderPath is required " .entityApiOrderPath | quote}}
             {{- end}}
             {{- with .Values.health }}
             - name: HEALTHCHECKS__ENABLED

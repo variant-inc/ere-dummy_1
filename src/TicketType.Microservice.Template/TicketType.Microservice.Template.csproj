@@ -11,11 +11,13 @@
 
     <ItemGroup>
         <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.1.68" />
+        <PackageReference Include="AutoMapper" Version="10.1.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="Serilog" Version="2.10.0" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="4.1.2" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="3.2.0" />
-        <PackageReference Include="Variant.TicketsShared.DataSource" Version="1.0.1" />
+        <PackageReference Include="Variant.TicketsShared.DataSource" Version="1.0.3" />
         <PackageReference Include="Variant.TicketsShared.ErrorHandler" Version="1.0.1" />
         <PackageReference Include="Variant.TicketsShared.Messaging" Version="1.0.14" />
         <PackageReference Include="Variant.TicketsShared.LaunchDarklyExtensions" Version="1.0.2" />		
