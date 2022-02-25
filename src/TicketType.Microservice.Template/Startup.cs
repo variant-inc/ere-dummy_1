@@ -10,6 +10,7 @@ using Variant.TicketsShared.LaunchDarklyExtensions;
 using TicketType.Microservice.Template.Infrastructure;
 using Variant.TicketsShared.DataSource.Infrastructure;
 using Variant.TicketsShared.Messaging.DependencyInjection;
+using TicketType.Microservice.Template.Services;
 
 namespace TicketType.Microservice.Template
 {
@@ -33,7 +34,9 @@ namespace TicketType.Microservice.Template
             services.AddMessagingServices<EntitySqsQueueHandler>(config);
             // services.ConfigureLaunchDarkly(config);
 
-			var provider = services.BuildServiceProvider();
+            services.AddScoped<GeneratorErrorHandler>();
+
+            var provider = services.BuildServiceProvider();
             var logger = provider.GetRequiredService<ILogger>();
             logger.Information("Services Configured!");
         }
