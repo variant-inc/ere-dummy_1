@@ -32,7 +32,7 @@ namespace TicketType.Microservice.Template
             services.AddDataSources(config);
 
             services.AddMessagingServices<EntitySqsQueueHandler>(config);
-            // services.ConfigureLaunchDarkly(config);
+            services.ConfigureLaunchDarkly(config);
 
             services.AddScoped<GeneratorErrorHandler>();
 
