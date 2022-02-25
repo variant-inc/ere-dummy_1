@@ -88,4 +88,30 @@ resource "helm_release" "ticket_type_microservice_prototype" {
     name  = "envVars.epsagonAppName"
     value = var.epsagon_app_name
   }
+
+  #egress
+   set {
+    name  = "vsd.istio.egress[0].name"
+    value = "launchdarkly-apis"
+  }
+
+  set {
+    name  = "vsd.istio.egress[0].hosts[0]"
+    value = "events.launchdarkly.com"
+  }
+
+  set {
+    name  = "vsd.istio.egress[0].hosts[1]"
+    value = "stream.launchdarkly.com"
+  }
+
+  set {
+    name  = "vsd.istio.egress[0].ports[0].number"
+    value = 443
+  }
+
+  set {
+    name  = "vsd.istio.egress[0].ports[0].protocol"
+    value = "HTTPS"
+  }
 }
