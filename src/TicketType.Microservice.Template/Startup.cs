@@ -6,9 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using TicketType.Microservice.Template.Handlers;
 using TicketType.Microservice.Template.Infrastructure.FeatureFlags;
-using Variant.TicketsShared.LaunchDarklyExtensions;
 using TicketType.Microservice.Template.Infrastructure;
-using Variant.TicketsShared.DataSource.Infrastructure;
 using Variant.TicketsShared.Messaging.DependencyInjection;
 using TicketType.Microservice.Template.Services;
 
@@ -27,12 +25,12 @@ namespace TicketType.Microservice.Template
         {
             var config = hostContext.Configuration;
 
-            services.AddOutgoingSnsTopicMetaData(config)
+            services.AddScoped<GeneratorErrorHandler>()
+                .AddOutgoingSnsTopicMetaData(config)
                 .AddAutoMapper(cfg => cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies()))
                 .AddDataSources(config)
-                .AddMessagingServices<EntitySqsQueueHandler>(config)
-                .ConfigureLaunchDarkly(config)
-                .AddScoped<GeneratorErrorHandler>();
+                .AddMessagingServices<EntitySqsQueueHandler>(config);
+                // .ConfigureLaunchDarkly(config);
 
             var provider = services.BuildServiceProvider();
             var logger = provider.GetRequiredService<ILogger>();

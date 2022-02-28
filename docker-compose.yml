@@ -20,8 +20,7 @@ services:
       - AWS__ServiceURL=http://localstack:4576
       - SQS__Region=us-east-1
       - SQS__QueueUrl=http://localstack:4576/000000000000/entity-queue
-      - SNS__OutgoingTopicName=tickets-topic
-      - SNS__OutgoingTopicArn=arn:aws:sns:us-east-1:000000000000:tickets-topic
+      - OutgoingSNSTopicName=tickets-topic
       - DOTNET_ENIVRONMENT=Development
       - DOTNET_USE_POLLING_FILE_WATCHER=1
       - DOTNET_RUNNING_IN_CONTAINER=true
