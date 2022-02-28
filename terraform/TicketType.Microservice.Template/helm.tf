@@ -60,11 +60,6 @@ resource "helm_release" "ticket_type_microservice_prototype" {
   }
 
   set {
-    name  = "envVars.SNS.OutgoingTopicName"
-    value = var.ticketing_api_outgoing_topic_name
-  }
-
-  set {
     name  = "envVars.SNS.OutgoingTopicArn"
     value = aws_sns_topic.outgoing_exceptions_topic.arn
   }

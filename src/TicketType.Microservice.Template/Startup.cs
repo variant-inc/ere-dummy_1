@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using TicketType.Microservice.Template.Handlers;
-using TicketType.Microservice.Template.Infrastructure.FeatureFlags;
 using TicketType.Microservice.Template.Infrastructure;
 using Variant.TicketsShared.Messaging.DependencyInjection;
 using TicketType.Microservice.Template.Services;
@@ -26,7 +25,6 @@ namespace TicketType.Microservice.Template
             var config = hostContext.Configuration;
 
             services.AddScoped<GeneratorErrorHandler>()
-                .AddOutgoingSnsTopicMetaData(config)
                 .AddAutoMapper(cfg => cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies()))
                 .AddDataSources(config)
                 .AddMessagingServices<EntitySqsQueueHandler>(config);

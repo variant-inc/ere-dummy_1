@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -16,9 +17,8 @@ namespace TicketType.Microservice.Template.Handlers
         public EntitySqsQueueHandler(
             ILogger<IMessageHandler> logger,
             IEntityApiChecklist checklist,
-            IPublishMessageToSNSTopic publisher,
-            IOutgoingSnsTopicMetaData outgoingSnsTopicMetaData
-        ) : base(logger, checklist, publisher, outgoingSnsTopicMetaData)
+            IPublishMessageToSNSTopic publisher
+        ) : base(logger, checklist, publisher)
         {
             logger.LogInformation("EntitySqsQueueHandler started.");
         }
@@ -26,14 +26,14 @@ namespace TicketType.Microservice.Template.Handlers
         // Required by IMessageHandler
         public override async Task Init()
         {
-            _logger.LogInformation("Initializing");
+            _logger.LogInformation("Initializing template microservice.");
 
             var exception = new ExceptionBase
             {
-                Body = "UIH liuhliuh luh iluhiu"
+                Body = "Some exception type"
             };
 
-            await _publisher.PublishMessageToSNSTopicAsync(_outgoingSnsTopicMetaData.TopicName, exception);
+            await _publisher.PublishMessageToSNSTopicAsync("Outgoing", exception);
         }
     }
 }

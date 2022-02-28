@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -19,17 +20,12 @@ namespace TicketType.Microservice.Template.UnitTests.Handlers
     public class EntitySqsQueueHandlerTests
     {
         private readonly Mock<ILogger<IMessageHandler>> _logger;
-        private readonly Mock<IOutgoingSnsTopicMetaData> _mockOutgoingTopic;
         private readonly Mock<IPublishMessageToSNSTopic> _mockPublisher;
         private readonly IEntityApiChecklist _checklist;
 
         public EntitySqsQueueHandlerTests()
         {
             _logger = new Mock<ILogger<IMessageHandler>>();
-            _mockOutgoingTopic = new Mock<IOutgoingSnsTopicMetaData>
-            {
-                Name = It.IsAny<string>()
-            };
             _mockPublisher = new Mock<IPublishMessageToSNSTopic>();
             _checklist = new EntityApiChecklist();
         }
@@ -48,19 +44,15 @@ namespace TicketType.Microservice.Template.UnitTests.Handlers
             {
                 Body = JsonStub.GetGoodJson(EntityEventTypes.JOB_STARTED, EntityTypes.Tractor)
             };
-            var exception = new ExceptionBase
-            {
-                Body = "uilh iuh liuhiu"
-            };
-            _mockPublisher.Setup(p => p.PublishMessageToSNSTopicAsync(It.IsAny<string>(), exception, null))
+            _mockPublisher.Setup(p => p.PublishMessageToSNSTopicAsync(It.IsAny<string>(), It.IsAny<ExceptionBase>(), It.IsAny<Dictionary<string, string>>()))
                 .Verifiable();
-            var handler = new EntitySqsQueueHandler(_logger.Object, _checklist, _mockPublisher.Object, _mockOutgoingTopic.Object);
+            var handler = new EntitySqsQueueHandler(_logger.Object, _checklist, _mockPublisher.Object);
 
             await handler.HandleEventAsync(message, It.IsAny<CancellationToken>());
 
-        //     mockPublisher.Verify(
-        // p => p.PublishMessageToSNSTopicAsync(It.IsAny<string>(), exception, null),
-        //         Times.Once);
+            _mockPublisher.Verify(
+        p => p.PublishMessageToSNSTopicAsync(It.IsAny<string>(), It.IsAny<ExceptionBase>(), It.IsAny<Dictionary<string, string>>()),
+                Times.Once);
             _logger.Verify(x => x.Log(
                 LogLevel.Information,
                 It.IsAny<EventId>(),
