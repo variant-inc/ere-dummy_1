@@ -27,6 +27,12 @@ envVars:
     OutgoingTopicName: "Replace .Values.envVars.SNS.OutgoingTopicName"
   SQS:
     QueueUrl: "Replace .Values.envVars.SQS.QueueUrl"
+  entityApiBaseAddress: "Replace .Values.envVars.entityApiBaseAddress"
+  entityApiUserAgent: "Replace .Values.envVars.entityApiUserAgent"
+  entityApiTractorPath: "Replace .Values.envVars.entityApiTractorPath"
+  entityApiDriverPath: "Replace .Values.envVars.entityApiDriverPath"
+  entityApiHometimePath: "Replace .Values.envVars.entityApiHometimePath"
+  entityApiOrderPath: "Replace .Values.envVars.entityApiOrderPath"
 
 podAnnotations: {}
 
