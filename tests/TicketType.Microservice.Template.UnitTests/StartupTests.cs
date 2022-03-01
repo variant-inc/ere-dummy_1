@@ -1,10 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using TicketType.Microservice.Template.Handlers;
-using Xunit;
 
 namespace TicketType.Microservice.Template.UnitTests
 {

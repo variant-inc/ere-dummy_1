@@ -4,9 +4,10 @@ using Epsagon.Dotnet.Instrumentation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using TicketType.Microservice.Template.Handlers;
+using TicketType.Microservice.Core.Handlers;
 using TicketType.Microservice.Template.Infrastructure;
 using Variant.TicketsShared.Messaging.DependencyInjection;
+using TicketType.Microservice.Core.DependencyInjection;
 using TicketType.Microservice.Template.Services;
 
 namespace TicketType.Microservice.Template
@@ -27,7 +28,8 @@ namespace TicketType.Microservice.Template
             services.AddScoped<GeneratorErrorHandler>()
                 .AddAutoMapper(cfg => cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies()))
                 .AddDataSources(config)
-                .AddMessagingServices<EntitySqsQueueHandler>(config);
+                .AddMessagingServices<EntitySqsQueueHandler>(config)
+                .AddCoreDependencies();
                 // .ConfigureLaunchDarkly(config);
 
             var provider = services.BuildServiceProvider();

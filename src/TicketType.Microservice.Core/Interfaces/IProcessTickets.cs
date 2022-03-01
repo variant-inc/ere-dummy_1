@@ -4,8 +4,8 @@ namespace TicketType.Microservice.Core.Interfaces
 {
     public interface IProcessTickets
     {
-        Task ProcessDriverTickets(string topicName);
-        Task ProcessTractorTickets(string topicName);
-        Task ProcessOrderTickets(string topicName);
+        Task ProcessDriverTickets();
+        Task ProcessTractorTickets();
+        Task ProcessOrderTickets();
     }
 }

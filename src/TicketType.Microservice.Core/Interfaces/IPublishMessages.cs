@@ -6,6 +6,6 @@ namespace TicketType.Microservice.Core.Interfaces
 {
     public interface IPublishMessages
     {
-        Task PublishMessageToSnsTopic(string topicName,List<TicketMessage> tickets);
+        Task PublishMessageToSnsTopic(List<TicketMessage> tickets);
     }
 }

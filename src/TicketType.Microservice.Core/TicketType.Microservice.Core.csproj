@@ -6,7 +6,7 @@
     
     <ItemGroup>
       <PackageReference Include="Variant.TicketsShared.DataSource" Version="1.0.3" />
-      <PackageReference Include="Variant.TicketsShared.Messaging" Version="1.0.11" />
+      <PackageReference Include="Variant.TicketsShared.Messaging" Version="1.0.24" />
     </ItemGroup>
 
 </Project>
