@@ -32,7 +32,7 @@ resource "aws_sqs_queue" "temp_outgoing_queue" {
   name                        = "temp_outgoing_queue"
   kms_master_key_id           = data.aws_kms_alias.sns_key.id
   visibility_timeout_seconds  = 3
-  message_retention_seconds   = 3
+  message_retention_seconds   = 60
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.temp_outgoing_deadletter_queue.arn
