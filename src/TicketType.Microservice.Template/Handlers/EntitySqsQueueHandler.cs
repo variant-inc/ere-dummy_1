@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using TicketType.Microservice.Core;
+using TicketType.Microservice.Core.Interfaces;
 using Variant.TicketsShared.Messaging.Abstracts;
-using Variant.MessageHandler.MessageHandler;
 using Variant.TicketsShared.Messaging.Interfaces;
-using Variant.TicketsShared.Messaging.Models;
 using Variant.TicketsShared.Messaging.PublishMessage;
 
 namespace TicketType.Microservice.Template.Handlers
@@ -14,26 +13,51 @@ namespace TicketType.Microservice.Template.Handlers
     [ExcludeFromCodeCoverage]
     public class EntitySqsQueueHandler : AbstractSQSHandler
     {
+        private readonly IProcessTickets _processTickets;
+        
         public EntitySqsQueueHandler(
-            ILogger<IMessageHandler> logger,
+            ILogger<EntitySqsQueueHandler> logger,
             IEntityApiChecklist checklist,
-            IPublishMessageToSNSTopic publisher
+            IPublishMessageToSNSTopic publisher,
+            IProcessTickets processTickets
         ) : base(logger, checklist, publisher)
         {
-            logger.LogInformation("EntitySqsQueueHandler started.");
+            _processTickets = processTickets;
+            logger.LogInformation("EntitySqsQueueHandler started");
         }
 
         // Required by IMessageHandler
         public override async Task Init()
         {
-            _logger.LogInformation("Initializing template microservice.");
-
-            var exception = new ExceptionBase
+            _logger.LogInformation("Initializing template microservice");
+            
+            try
             {
-                Body = "Some exception type"
-            };
-
-            await _publisher.PublishMessageToSNSTopicAsync("Outgoing", exception);
+                 await ManageChecklistAsync("Outgoing",_checklist);
+            }
+            catch
+            {
+                _logger.LogError("Error Handling Data fro the Queue");
+            }
+            
+        }
+        
+        private async Task ManageChecklistAsync(string topicName, IEntityApiChecklist checklist)
+        {
+            if (checklist.DriverApiReady)
+            {
+                await _processTickets.ProcessDriverTickets(topicName);
+            }else if (checklist.TractorApiReady)
+            {
+                await _processTickets.ProcessTractorTickets(topicName);
+            }else if (checklist.OrderApiReady)
+            {
+                await _processTickets.ProcessOrderTickets(topicName);
+            }
+            else
+            {
+                throw new DataException("checklist must have either one of the event to be true");
+            }
         }
     }
 }
