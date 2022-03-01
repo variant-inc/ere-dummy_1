@@ -1,3 +1,4 @@
+# This file can go away. It is only needed for testing.
 resource "aws_sqs_queue" "temp_outgoing_deadletter_queue" {
 #  name                        = local.sqs_entity_deadletter_queue_name
   name                        = "eng-temp_outgoing_deadletter"
@@ -48,7 +49,7 @@ resource "aws_sqs_queue_policy" "temp_outgoing_queue_policy" {
 resource "aws_sns_topic_subscription" "outgoing_topic_subscription" {
   endpoint             = aws_sqs_queue.temp_outgoing_queue.arn
   protocol             = "sqs"
-  topic_arn            = aws_sns_topic.temp_incoming_entity_topic.arn
+  topic_arn            = aws_sns_topic.outgoing_exceptions_topic.arn
   raw_message_delivery = true
   depends_on           = [aws_sqs_queue_policy.temp_outgoing_queue_policy]
 }
