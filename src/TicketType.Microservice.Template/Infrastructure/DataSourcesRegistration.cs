@@ -17,7 +17,7 @@ namespace TicketType.Microservice.Template.Infrastructure
             //AddDriverSource(services, configuration);
             //AddHomeTimeSource(services, configuration);
             //AddOrderSource(services, configuration);
-            AddSimulationsDataSource(services, configuration);
+            //AddSimulationsDataSource(services, configuration);
             return services;
         }
 
@@ -25,10 +25,6 @@ namespace TicketType.Microservice.Template.Infrastructure
         {
             var baseAddress = configuration.GetSection("SimulationsApi").GetValue<string>("BaseAddress");
             services.AddSimulationAssignmentsDataService(new HttpDataSourceDomainConfiguration { Domain = baseAddress });
-
-            var s = services.BuildServiceProvider().GetRequiredService<ISimulationData>();
-            var searchParams = new SimulationTractorSearchParams() { CreationDatetimeGreaterThan = new DateTime(2021, 11, 24, 16, 12, 49) };
-            var res = s.SearchTractorSimulationAssignments(searchParams).Result;
         }
 
         private static void AddTractorSource(IServiceCollection services, IConfiguration configuration) => services.AddEntityDataSource(configuration, "TractorApi", services.AddTractorDataService);
@@ -39,7 +35,11 @@ namespace TicketType.Microservice.Template.Infrastructure
 
         private static void AddOrderSource(IServiceCollection services, IConfiguration configuration) => services.AddEntityDataSource(configuration, "OrderApi", services.AddOrdersDataService);
 
-        private static void AddEntityDataSource(this IServiceCollection services, IConfiguration configuration, string configSection, Func<HttpEntityDataSourceConfiguration, IServiceCollection> bootstrapingMethod)
+        private static void AddEntityDataSource(
+            this IServiceCollection services, 
+            IConfiguration configuration, 
+            string configSection, Func<HttpEntityDataSourceConfiguration, 
+            IServiceCollection> bootstrapingMethod)
         {
             var (baseAddress, userAgent) = GetEntityApiConfig(configuration);
             var resourcePath = configuration.GetSection(configSection).GetValue<string>("ResourcePath");
