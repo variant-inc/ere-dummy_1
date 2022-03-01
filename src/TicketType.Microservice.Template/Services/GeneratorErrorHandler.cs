@@ -25,10 +25,11 @@ namespace TicketType.Microservice.Template.Services
 
             //handle trigger sns issue
 
-            //handle exception publish issue
-
+            _logger.LogError(ex.Message);
+            throw new BatchProcessFailedException();
         }
 
+        //Use at single exception generation stage
         public void HandleExceptionItemGenerationIssue(object inputData, Exception ex)
         {
             _logger.LogError(ex, $"Failed to generate exception for data reason: {ex.Message}, input data: {JsonSerializer.Serialize(inputData)} ");
