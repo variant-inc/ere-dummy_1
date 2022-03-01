@@ -114,6 +114,11 @@ resource "helm_release" "ticket_type_microservice_prototype" {
     value = var.entity_api_tractor_path
   }
 
+  set {
+    name  = "envVars.simulationsApiBaseAddress"
+    value = var.simulations_api_base_address
+  }
+
   #egress
    set {
     name  = "vsd.istio.egress[0].name"

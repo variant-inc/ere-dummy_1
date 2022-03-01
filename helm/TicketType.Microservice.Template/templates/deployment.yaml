@@ -91,6 +91,8 @@ spec:
               value: {{ required ".entityApiHometimePath is required " .entityApiHometimePath | quote}}
             - name: OrderApi__ResourcePath
               value: {{ required ".entityApiOrderPath is required " .entityApiOrderPath | quote}}
+            - name: SimulationsApi__BaseAddress
+              value: {{ required ".simulationsApiBaseAddress is required " .simulationsApiBaseAddress | quote}}
             {{- end}}
             {{- with .Values.health }}
             - name: HEALTHCHECKS__ENABLED

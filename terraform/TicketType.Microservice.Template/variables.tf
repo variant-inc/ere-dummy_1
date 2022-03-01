@@ -125,3 +125,7 @@ variable "entity_api_order_path" {
 variable "entity_api_tractor_path" {
   type = string
 }
+
+variable "simulations_api_base_address" {
+  type = string
+}
