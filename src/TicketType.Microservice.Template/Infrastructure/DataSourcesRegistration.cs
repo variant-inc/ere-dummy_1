@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using Variant.TicketsShared.DataSource.Infrastructure;
+using Variant.TicketsShared.DataSource.Simulation.Abstract;
+using Variant.TicketsShared.DataSource.Simulation.RequestModels;
 
 namespace TicketType.Microservice.Template.Infrastructure
 {
@@ -11,13 +13,22 @@ namespace TicketType.Microservice.Template.Infrastructure
     {
         public static IServiceCollection AddDataSources(this IServiceCollection services, IConfiguration configuration)
         {
-            //Uncomment line to configure required data source;
-
             //AddTractorSource(services, configuration);
             //AddDriverSource(services, configuration);
             //AddHomeTimeSource(services, configuration);
             //AddOrderSource(services, configuration);
+            AddSimulationsDataSource(services, configuration);
             return services;
+        }
+
+        private static void AddSimulationsDataSource(IServiceCollection services, IConfiguration configuration)
+        {
+            var baseAddress = configuration.GetSection("SimulationsApi").GetValue<string>("BaseAddress");
+            services.AddSimulationAssignmentsDataService(new HttpDataSourceDomainConfiguration { Domain = baseAddress });
+
+            var s = services.BuildServiceProvider().GetRequiredService<ISimulationData>();
+            var searchParams = new SimulationTractorSearchParams() { CreationDatetimeGreaterThan = new DateTime(2021, 11, 24, 16, 12, 49) };
+            var res = s.SearchTractorSimulationAssignments(searchParams).Result;
         }
 
         private static void AddTractorSource(IServiceCollection services, IConfiguration configuration) => services.AddEntityDataSource(configuration, "TractorApi", services.AddTractorDataService);
@@ -27,7 +38,6 @@ namespace TicketType.Microservice.Template.Infrastructure
         private static void AddHomeTimeSource(IServiceCollection services, IConfiguration configuration) => services.AddEntityDataSource(configuration, "HometimeApi", services.AddHomeTimeDataService);
 
         private static void AddOrderSource(IServiceCollection services, IConfiguration configuration) => services.AddEntityDataSource(configuration, "OrderApi", services.AddOrdersDataService);
-
 
         private static void AddEntityDataSource(this IServiceCollection services, IConfiguration configuration, string configSection, Func<HttpEntityDataSourceConfiguration, IServiceCollection> bootstrapingMethod)
         {
@@ -52,5 +62,7 @@ namespace TicketType.Microservice.Template.Infrastructure
                 apiSection.GetValue<string>("UserAgent")
                 );
         }
+
+
     }
 }
