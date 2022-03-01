@@ -68,7 +68,7 @@ spec:
             - name: SQS__QueueUrl
               value: {{ required "The incoming SQS queue URL is Required" .SQS.QueueUrl | quote }}
             - name: SNS_REGION
-              value: { { required "The incoming SQS queue URL is Required" .awsRegion | quote } }
+              value: {{ required "The incoming SQS queue URL is Required" .awsRegion | quote }}
             - name: MessagePublisher__SnsTopics__Outgoing
               value: {{ required "The outgoing Ticketing SNS Topic Arn is Required" .SNS.OutgoingTopicArn | quote }}
             - name: LaunchDarkly__Key
