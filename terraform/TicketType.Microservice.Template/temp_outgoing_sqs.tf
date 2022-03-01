@@ -1,6 +1,6 @@
 resource "aws_sqs_queue" "temp_outgoing_deadletter_queue" {
 #  name                        = local.sqs_entity_deadletter_queue_name
-  name                        = "temp_outgoing_deadletter"
+  name                        = "eng-temp_outgoing_deadletter"
   kms_master_key_id           = data.aws_kms_alias.sns_key.id
 }
 
@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "temp_outgoing_queue_policy_data" {
 
 resource "aws_sqs_queue" "temp_outgoing_queue" {
 #  name                        = local.sqs_incoming_queue_name
-  name                        = "temp_outgoing_queue"
+  name                        = "eng-temp_outgoing_queue"
   kms_master_key_id           = data.aws_kms_alias.sns_key.id
   visibility_timeout_seconds  = 3
   message_retention_seconds   = 60
