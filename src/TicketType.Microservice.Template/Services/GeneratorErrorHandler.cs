@@ -25,8 +25,6 @@ namespace TicketType.Microservice.Template.Services
 
             //handle trigger sns issue
 
-            //handle exception publish issue
-
             _logger.LogError(ex.Message);
             throw new BatchProcessFailedException();
         }
