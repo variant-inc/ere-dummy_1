@@ -1,11 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using TicketType.Microservice.Core.Helpers;
-using TicketType.Microservice.Core.Models;
 using TicketType.Microservice.Core.Interfaces;
-using Variant.TicketsShared.Messaging.Models;
-using Variant.TicketsShared.Messaging.PublishMessage;
 
 namespace TicketType.Microservice.Core.Exceptions
 {
@@ -25,13 +21,13 @@ namespace TicketType.Microservice.Core.Exceptions
             _publishMessages = publishMessages;
         }
 
-        public async Task ProcessDriverTickets()
+        public async Task ProcessDriverTickets(string topicName)
         {
             try
             {
                 var driverData = await _getDataFromApi.GetDataFromDriverApi();
                 var tickets = _createTickets.CreateTicketsFromDriverData(driverData);
-                await _publishMessages.PublishMessageToSnsTopic(tickets);
+                await _publishMessages.PublishMessageToSnsTopic(topicName,tickets);
             }
             catch(Exception ex)
             {
@@ -39,13 +35,13 @@ namespace TicketType.Microservice.Core.Exceptions
             }
         }
         
-        public async Task ProcessTractorTickets()
+        public async Task ProcessTractorTickets(string topicName)
         {
             try
             {
                 var driverData = await _getDataFromApi.GetDataFromTractorApi();
                 var tickets = _createTickets.CreateTicketsFromTractorData(driverData);
-                await _publishMessages.PublishMessageToSnsTopic(tickets);
+                await _publishMessages.PublishMessageToSnsTopic(topicName, tickets);
             }
             catch(Exception ex)
             {
@@ -53,13 +49,13 @@ namespace TicketType.Microservice.Core.Exceptions
             }
         }
         
-        public async Task ProcessOrderTickets()
+        public async Task ProcessOrderTickets(string topicName)
         {
             try
             {
                 var driverData = await _getDataFromApi.GetDataFromOrderApi();
                 var tickets = _createTickets.CreateTicketsFromOrderData(driverData);
-                await _publishMessages.PublishMessageToSnsTopic(tickets);
+                await _publishMessages.PublishMessageToSnsTopic(topicName, tickets);
             }
             catch(Exception ex)
             {

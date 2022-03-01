@@ -21,7 +21,7 @@ namespace TicketType.Microservice.Core.PublishMessage
             _publishMessageToSnsTopic = publishMessageToSnsTopic;
         }
         
-        public async Task PublishMessageToSnsTopic(List<TicketMessage> tickets)
+        public async Task PublishMessageToSnsTopic(string topicName, List<TicketMessage> tickets)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace TicketType.Microservice.Core.PublishMessage
                     {
                         Body = message.ToString()
                     };
-                    await _publishMessageToSnsTopic.PublishMessageToSNSTopicAsync(GlobalVars.SnsTopicName, exception);
+                    await _publishMessageToSnsTopic.PublishMessageToSNSTopicAsync(topicName, exception);
                 }
             }
             catch
