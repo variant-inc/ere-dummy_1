@@ -24,6 +24,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\TicketType.Microservice.Core\TicketType.Microservice.Core.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
         <Content Include="appsettings.*.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Moq;
+using TicketType.Microservice.Core;
 using TicketType.Microservice.Template.Handlers;
 using TicketType.Microservice.Template.UnitTests.Stubs;
 using Variant.MessageHandler.Entities;
@@ -19,15 +20,17 @@ namespace TicketType.Microservice.Template.UnitTests.Handlers
 {
     public class EntitySqsQueueHandlerTests
     {
-        private readonly Mock<ILogger<IMessageHandler>> _logger;
+        private readonly Mock<ILogger<EntitySqsQueueHandler>> _logger;
         private readonly Mock<IPublishMessageToSNSTopic> _mockPublisher;
+        private readonly Mock<IDataHandler> _mockDataHandler;
         private readonly IEntityApiChecklist _checklist;
 
         public EntitySqsQueueHandlerTests()
         {
-            _logger = new Mock<ILogger<IMessageHandler>>();
+            _logger = new Mock<ILogger<EntitySqsQueueHandler>>();
             _mockPublisher = new Mock<IPublishMessageToSNSTopic>();
             _checklist = new EntityApiChecklist();
+            _mockDataHandler = new Mock<IDataHandler>();
         }
 
         [Fact]
@@ -46,13 +49,16 @@ namespace TicketType.Microservice.Template.UnitTests.Handlers
             };
             _mockPublisher.Setup(p => p.PublishMessageToSNSTopicAsync(It.IsAny<string>(), It.IsAny<ExceptionBase>(), It.IsAny<Dictionary<string, string>>()))
                 .Verifiable();
-            var handler = new EntitySqsQueueHandler(_logger.Object, _checklist, _mockPublisher.Object);
+            _mockDataHandler.Setup(p => p.ManageChecklistAsync(It.IsAny<string>(), It.IsAny<IEntityApiChecklist>()))
+                .Verifiable();
+            var handler = new EntitySqsQueueHandler(_logger.Object, _checklist, _mockPublisher.Object,_mockDataHandler.Object);
 
             await handler.HandleEventAsync(message, It.IsAny<CancellationToken>());
 
-            _mockPublisher.Verify(
-        p => p.PublishMessageToSNSTopicAsync(It.IsAny<string>(), It.IsAny<ExceptionBase>(), It.IsAny<Dictionary<string, string>>()),
+            _mockDataHandler.Verify(
+        p => p.ManageChecklistAsync(It.IsAny<string>(), It.IsAny<IEntityApiChecklist>()),
                 Times.Once);
+            
             _logger.Verify(x => x.Log(
                 LogLevel.Information,
                 It.IsAny<EventId>(),
