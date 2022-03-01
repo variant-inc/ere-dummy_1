@@ -11,6 +11,7 @@ RUN apk add --no-cache tzdata
 COPY ./*.sln .
 COPY ./nuget.config .
 COPY ./Directory.Build.props .
+COPY ./src/TicketType.Microservice.Core/*.csproj src/TicketType.Microservice.Core/
 COPY ./src/TicketType.Microservice.Template/*.csproj src/TicketType.Microservice.Template/
 COPY ./tests/TicketType.Microservice.Template.UnitTests/*.csproj tests/TicketType.Microservice.Template.UnitTests/
 RUN dotnet restore

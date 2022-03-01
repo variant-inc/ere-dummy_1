@@ -1,21 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Moq;
-using TicketType.Microservice.Core;
 using TicketType.Microservice.Core.Interfaces;
-using TicketType.Microservice.Template.Handlers;
-using TicketType.Microservice.Template.UnitTests.Stubs;
-using Variant.MessageHandler.Entities;
-using Variant.MessageHandler.MessageHandler;
+using TicketType.Microservice.Core.Handlers;
 using Variant.TicketsShared.Messaging;
-using Variant.TicketsShared.Messaging.Constants;
 using Variant.TicketsShared.Messaging.Interfaces;
-using Variant.TicketsShared.Messaging.Models;
 using Variant.TicketsShared.Messaging.PublishMessage;
-using Xunit;
 
 namespace TicketType.Microservice.Template.UnitTests.Handlers
 {

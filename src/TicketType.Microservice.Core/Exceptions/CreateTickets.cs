@@ -10,10 +10,14 @@ namespace TicketType.Microservice.Core.Exceptions
 {
     public class CreateTickets : ICreateTickets
     {
+        private readonly IBusinessLogic _businessLogic;
         private readonly ILogger _logger;
         
-        public CreateTickets(ILogger<CreateTickets> logger)
+        public CreateTickets(
+            IBusinessLogic businessLogic,
+            ILogger<CreateTickets> logger)
         {
+            _businessLogic = businessLogic;
             _logger = logger;
         }
         
@@ -23,7 +27,7 @@ namespace TicketType.Microservice.Core.Exceptions
             // Write logic to check if each tractorData matches the requirements for ticketType
             foreach (TractorData data in tractorData)
             {
-                if (!IsTractorDataMatchesTheTicketRequirements(data))
+                if (!_businessLogic.IsTractorDataMatchesTheTicketRequirements(data))
                 {
                     continue;
                 }
@@ -43,7 +47,7 @@ namespace TicketType.Microservice.Core.Exceptions
             // Write logic to check if each driverData matches the requirements for ticketType
             foreach (DriverData data in driverData)
             {
-                if (!IsDriverDataMatchesTheTicketRequirements(data)) {
+                if (!_businessLogic.IsDriverDataMatchesTheTicketRequirements(data)) {
                     continue;
                 }
                 var newTicketMessage = new TicketMessage
@@ -62,7 +66,7 @@ namespace TicketType.Microservice.Core.Exceptions
             // Write logic to check if each orderData matches the requirements for ticketType
             foreach (OrderData data in orderData)
             {
-                if (!IsOrderDataMatchesTheTicketRequirements(data))
+                if (!_businessLogic.IsOrderDataMatchesTheTicketRequirements(data))
                 {
                     continue;  
                 }
@@ -74,27 +78,6 @@ namespace TicketType.Microservice.Core.Exceptions
             }
             
             return ticketMessages;
-        }
-
-        private bool IsTractorDataMatchesTheTicketRequirements(TractorData driverData)
-        {
-            // Logic to see if the data matches the requirements of ticketTYpe
-
-            return false;
-        }
-        
-        private bool IsDriverDataMatchesTheTicketRequirements(DriverData driverData)
-        {
-            // Logic to see if the data matches the requirements of ticketTYpe
-
-            return false;
-        }
-        
-        private bool IsOrderDataMatchesTheTicketRequirements(OrderData driverData)
-        {
-            // Logic to see if the data matches the requirements of ticketTYpe
-
-            return false;
         }
     }
 }

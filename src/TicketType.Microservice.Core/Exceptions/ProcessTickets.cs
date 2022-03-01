@@ -12,8 +12,11 @@ namespace TicketType.Microservice.Core.Exceptions
         private readonly ICreateTickets _createTickets;
         private readonly IPublishMessages _publishMessages;
         
-        public ProcessTickets(ILogger<ProcessTickets> logger, ICreateTickets createTickets, 
-            IGetDataFromApi getDataFromApi,IPublishMessages publishMessages)
+        public ProcessTickets(
+            ILogger<ProcessTickets> logger,
+            ICreateTickets createTickets, 
+            IGetDataFromApi getDataFromApi,
+            IPublishMessages publishMessages)
         {
             _logger = logger;
             _createTickets = createTickets;
@@ -21,13 +24,13 @@ namespace TicketType.Microservice.Core.Exceptions
             _publishMessages = publishMessages;
         }
 
-        public async Task ProcessDriverTickets(string topicName)
+        public async Task ProcessDriverTickets()
         {
             try
             {
                 var driverData = await _getDataFromApi.GetDataFromDriverApi();
                 var tickets = _createTickets.CreateTicketsFromDriverData(driverData);
-                await _publishMessages.PublishMessageToSnsTopic(topicName,tickets);
+                await _publishMessages.PublishMessageToSnsTopic(tickets);
             }
             catch(Exception ex)
             {
@@ -35,13 +38,13 @@ namespace TicketType.Microservice.Core.Exceptions
             }
         }
         
-        public async Task ProcessTractorTickets(string topicName)
+        public async Task ProcessTractorTickets()
         {
             try
             {
                 var driverData = await _getDataFromApi.GetDataFromTractorApi();
                 var tickets = _createTickets.CreateTicketsFromTractorData(driverData);
-                await _publishMessages.PublishMessageToSnsTopic(topicName, tickets);
+                await _publishMessages.PublishMessageToSnsTopic(tickets);
             }
             catch(Exception ex)
             {
@@ -49,13 +52,13 @@ namespace TicketType.Microservice.Core.Exceptions
             }
         }
         
-        public async Task ProcessOrderTickets(string topicName)
+        public async Task ProcessOrderTickets()
         {
             try
             {
                 var driverData = await _getDataFromApi.GetDataFromOrderApi();
                 var tickets = _createTickets.CreateTicketsFromOrderData(driverData);
-                await _publishMessages.PublishMessageToSnsTopic(topicName, tickets);
+                await _publishMessages.PublishMessageToSnsTopic(tickets);
             }
             catch(Exception ex)
             {
