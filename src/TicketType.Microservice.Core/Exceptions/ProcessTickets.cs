@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TicketType.Microservice.Core.Interfaces;
 
 namespace TicketType.Microservice.Core.Exceptions
 {
+    [ExcludeFromCodeCoverage]
     public class ProcessTickets : IProcessTickets
     {
         private readonly ILogger _logger;

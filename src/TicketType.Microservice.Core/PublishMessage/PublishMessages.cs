@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TicketType.Microservice.Core.Helpers;
@@ -10,6 +11,7 @@ using Variant.TicketsShared.Messaging.PublishMessage;
 
 namespace TicketType.Microservice.Core.PublishMessage
 {
+    [ExcludeFromCodeCoverage]
     public class PublishMessages : IPublishMessages
     {
         private readonly ILogger _logger;

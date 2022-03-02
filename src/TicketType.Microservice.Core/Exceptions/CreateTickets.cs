@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using TicketType.Microservice.Core.Interfaces;
 using TicketType.Microservice.Core.Models;
@@ -8,6 +9,7 @@ using Variant.TicketsShared.DataSource.Tractor.ResponseModels;
 
 namespace TicketType.Microservice.Core.Exceptions
 {
+    [ExcludeFromCodeCoverage]
     public class CreateTickets : ICreateTickets
     {
         private readonly IBusinessLogic _businessLogic;

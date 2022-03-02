@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using TicketType.Microservice.Core.Interfaces;
 using Variant.TicketsShared.Messaging.Abstracts;
 using Variant.TicketsShared.Messaging.Interfaces;
 using Variant.TicketsShared.Messaging.PublishMessage;
@@ -43,6 +42,8 @@ namespace TicketType.Microservice.Core.Handlers
             {
                 _logger.LogError("Error Handling Data from the Queue");
             }
+
+            await Task.CompletedTask;
         }
 
         // void ProcessData(tractorApiData)
