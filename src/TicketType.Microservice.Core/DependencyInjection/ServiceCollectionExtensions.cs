@@ -1,9 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
-using TicketType.Microservice.Core.Exceptions;
-using TicketType.Microservice.Core.Helpers;
-using TicketType.Microservice.Core.Interfaces;
-using TicketType.Microservice.Core.PublishMessage;
+using Variant.TicketsShared.Messaging.Interfaces;
 
 namespace TicketType.Microservice.Core.DependencyInjection
 {
@@ -19,10 +16,7 @@ namespace TicketType.Microservice.Core.DependencyInjection
         public static IServiceCollection AddCoreDependencies(
             this IServiceCollection services)
         {
-            services.AddScoped<IBusinessLogic, BusinessLogic>()
-                .AddScoped<ICreateTickets, CreateTickets>()
-                .AddScoped<IGetDataFromApi, GetDataFromApi>()
-                .AddScoped<IPublishMessages, PublishMessages>();
+            services.AddScoped<IBusinessLogic, BusinessLogic>();
 
             return services;
         }

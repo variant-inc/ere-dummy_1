@@ -43,7 +43,7 @@ services:
     ports:
       - 127.0.0.1:4567:4566
     volumes:
-      - ./scripts/local/localstack:/docker-entrypoint-initaws.d:ro
+      - ./scripts/local/localstack:/docker-entrypoint-initaws.d:rw
 networks:
   default:
     name: ticket-type-microservice-network

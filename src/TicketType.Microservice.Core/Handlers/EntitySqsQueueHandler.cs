@@ -13,8 +13,9 @@ namespace TicketType.Microservice.Core.Handlers
         public EntitySqsQueueHandler(
             ILogger<EntitySqsQueueHandler> logger,
             IEntityApiChecklist checklist,
-            IPublishMessageToSNSTopic publisher
-        ) : base(logger, checklist, publisher)
+            IPublishMessageToSNSTopic publisher,
+            IBusinessLogic businessLogic
+        ) : base(logger, checklist, publisher, businessLogic)
         {
             logger.LogInformation("EntitySqsQueueHandler started");
         }
@@ -34,8 +35,9 @@ namespace TicketType.Microservice.Core.Handlers
                  //     TractorSearchParams tractorSearchParams = {}
                  //     var tractorApiData = await _tractorData.SearchTractors(tractorSearchParams);
                  //     And any other API data calls
-                 //     ProcessData(tractorApiData); - see below
                  // }
+                 // ... Get more data, Driver & Orders, etc.
+                 // _businessLogic.ProcessData(...);
                  // Batch end here
             }
             catch
@@ -45,11 +47,5 @@ namespace TicketType.Microservice.Core.Handlers
 
             await Task.CompletedTask;
         }
-
-        // void ProcessData(tractorApiData)
-        // {
-        //     - loop over data
-        //     - create exceptions
-        // }
     }
 }
