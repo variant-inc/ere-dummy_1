@@ -43,3 +43,14 @@ Once you have created your new repository you need to do some basic setup.
   - `./scripts/project-setup.sh`
   - If for some reason you can't run this, simply look at the script and do the steps manually.
   - Look for 'CHANGE_THIS' & replace with the appropriate value.
+
+# Running Locally
+- Open a terminal & navigate to the repo root.
+- Run `docker-compose up --build`
+- Once everything is up look for the `{"Timestamp":"2022-03-02T17:08:07.4318746+00:00","Level":"Information","MessageTemplate":"Services Configured!","Properties":{"Application":"TicketType.Microservice.Template"}}` log message.
+- Using Docker Desktop terminal connect to the localstack instance.
+- *NOTE: this is `read-write` access so you can modify the scripts real-time in the instance. Those changes will be lost when the instance is stopped.
+- Once in, `cd /docker-entrypoint-initaws.d/tools`
+- To send a predtermined Job Start message run `./incoming-publish-tool.sh`
+- See the `scripts/local/localstack/tools/incoming-publish-tool.sh` file if you want to customize the message.
+- There is also an `./outgoing-publish-tool.sh`
