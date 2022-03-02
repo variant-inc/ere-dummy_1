@@ -42,3 +42,4 @@ Once you have created your new repository you need to do some basic setup.
   - remove this README file & replace it with a new one for you to customize for this service.
   - `./scripts/project-setup.sh`
   - If for some reason you can't run this, simply look at the script and do the steps manually.
+  - Look for 'CHANGE_THIS' & replace with the appropriate value.
