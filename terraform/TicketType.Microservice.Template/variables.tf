@@ -88,10 +88,6 @@ variable "entity_api_incoming_queue_name" {
   type = string
 }
 
-variable "entity_api_incoming_queue_url" {
-  type = string
-}
-
 variable "ticketing_api_outgoing_topic_name" {
   type = string
 }
