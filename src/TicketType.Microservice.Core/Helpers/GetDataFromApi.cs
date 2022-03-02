@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TicketType.Microservice.Core.Interfaces;
@@ -13,6 +14,7 @@ using Variant.TicketsShared.DataSource.Tractor.ResponseModels;
 
 namespace TicketType.Microservice.Core.Helpers
 {
+    [ExcludeFromCodeCoverage]
     public class GetDataFromApi : IGetDataFromApi
     {
         private readonly ILogger _logger;

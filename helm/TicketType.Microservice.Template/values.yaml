@@ -33,6 +33,7 @@ envVars:
   entityApiDriverPath: "Replace .Values.envVars.entityApiDriverPath"
   entityApiHometimePath: "Replace .Values.envVars.entityApiHometimePath"
   entityApiOrderPath: "Replace .Values.envVars.entityApiOrderPath"
+  simulationsApiBaseAddress: "Replace .Values.envVars.simulationsApiBaseAddress"
 
 podAnnotations: {}
 

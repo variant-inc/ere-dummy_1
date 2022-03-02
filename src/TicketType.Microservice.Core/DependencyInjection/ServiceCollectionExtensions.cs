@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using TicketType.Microservice.Core.Exceptions;
 using TicketType.Microservice.Core.Helpers;
@@ -7,6 +7,7 @@ using TicketType.Microservice.Core.PublishMessage;
 
 namespace TicketType.Microservice.Core.DependencyInjection
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>Extensions for registering this project in a microservice.</summary>
     public static class ServiceCollectionExtensions
     {
