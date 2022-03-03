@@ -2,6 +2,7 @@
 
 MICROSERVICE_REPO=git@github.com:variant-inc/ticket-type-microservice-template.git
 MICROSERVICE_REMOTE_NAME=microservice-template
+TEMP_BRANCH_NAME=temp-tag-branch
 
 printf "\n##############################################"
 printf "\n### Microservice Update"
@@ -18,7 +19,7 @@ if [[ $# -ne 1 ]]
 then
   printf "\nYou MUST pass a Git tag set in the Microservice Template"
   printf "\nrepository you want to update to.\n"
-  exit 0
+  exit 1
 fi
 
 TAG=$1
@@ -39,19 +40,89 @@ then
   printf "\nDone.\n"
 fi
 
-#git remote show
+ERR=$?
 
-printf "\nFetching tag $TAG using the microservice-template remote...\n"
+if [[ $ERR -gt 0 ]]
+then
+  exit $ERR
+fi
+
+printf "\nCheckout the main branch...\n"
+git checkout master
+git pull origin master
+
+ERR=$?
+
+if [[ $ERR -gt 0 ]]
+then
+  exit $ERR
+fi
+
+printf "\nFetching tag $TAG from the microservice-template remote...\n"
 git fetch $MICROSERVICE_REMOTE_NAME refs/tags/$TAG:refs/tags/$TAG
 ERR=$?
 
 if [[ $ERR -gt 0 ]]
 then
+  exit $ERR
+fi
+
+TEXT=$(cat <<-REBASE
+Found the tag $TAG.
+
+!!! About to rebase the main branch with $TAG.
+This may result in 1 or more conflicts.
+This may also result in being in a detached head state.
+In these cases Git provides the information about what
+files are in conflict & what the state of the rebase is.
+
+Resolve conflicts manually being sure to use any incoming
+changes from the new tag over any local changes. If you
+need your local changes stash them first.
+
+If you run \`git status\` you should see something like:
+...
+You are currently rebasing.
+    (all conflicts fixed: run "git rebase --continue")
+
+Run the \`git rebase --continue\` command once you have
+resolved all conflicts.
+
+If you\'re now in a detached HEAD state then run:
+  - git checkout -b $TAG-Branch
+  - git checkout master
+  - git merge --no-ff $TAG-Branch
+  // Remove the rebase branch
+  - git -D $TAG-Branch
+
+The rebase should be complete now & you should have all the
+latest changes from the template.
+
+REBASE
+)
+
+echo "$TEXT"
+
+printf "\nContinue? [Y/n]:\n"
+read CONTINUE
+
+if [[ -z $CONTINUE ]]
+then
+  CONTINUE=Y
+fi
+
+if [[ $CONTINUE != "Y" ]]
+then
+  printf "\nL8tr Sk8tr!\n"
   exit 0
 fi
 
-printf "\nFound the tag $TAG\nAttempting to merge $TAG in to your main branch...\n"
-git merge --progress -s ort -Xtheirs $TAG --allow-unrelated-histories
-git diff $TAG
+git rebase -s ort -Xtheirs master $TAG
+ERR=$?
 
-exit $?
+if [[ $ERR -gt 0 ]]
+then
+  exit $ERR
+fi
+
+exit 0

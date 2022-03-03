@@ -18,6 +18,9 @@ This template serves to provide the following:
 - Navigate to https://github.com/variant-inc/ticket-type-microservice-template/generate
 - Complete the required steps. ***BE SURE** to create your repository with the 'variant-inc' owner.
   - Example repository name: `variant-inc/some-microservice`
+- Be sure to update the permissions of the new repo to include:
+  - Add "Engineering Leadership" with role "Admin"
+  - Add "Engineering" with role "Write"
 
 # Setup
 Once you have created your new repository you need to do some basic setup.
