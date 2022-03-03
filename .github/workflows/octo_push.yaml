@@ -39,7 +39,7 @@ jobs:
         with:
           src_file_dir_path: '.'
           dockerfile_dir_path: '.'
-          nuget_push_enabled: 'true'
+          nuget_push_enabled: 'false'
           nuget_push_token: ${{ secrets.GITHUB_TOKEN }}
           nuget_pull_token: ${{ secrets.PKG_READ }}
           container_push_enabled: 'true'
